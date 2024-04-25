@@ -80,6 +80,7 @@ if selected_opcion_crud == 'modificar':
 
             # Limpiar el contenido actual
             st.empty()
+            data = get_data()
     else:
 
         st.warning("No se encontraron IDs para la categoría seleccionada.")
@@ -90,8 +91,6 @@ if selected_opcion_crud == 'modificar':
 # Mostrar los datos en Streamlit
 if data is not None and not data.empty:
     st.title("Datos de la API CRUD Google Sheets")
-   
-    
     st.write(data)
 else:
     st.warning("No se encontraron datos.")
