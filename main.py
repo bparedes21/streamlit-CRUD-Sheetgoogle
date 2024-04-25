@@ -26,9 +26,16 @@ def get_data():
 # Obtener los datos de la API
 data = get_data()
 
+# Obtener las categorías
+categories = ['Almacen','Mascotas','Bebidas y bodega']
+
+# Crear menú desplegable con las categorías
+selected_category = st.selectbox("Selecciona una categoría:", categories)
 # Mostrar los datos en Streamlit
 if data is not None and not data.empty:
     st.title("Datos de la API CRUD Google Sheets")
+   
+    st.write(f"Datos de la categoría '{selected_category}'")
     st.write(data)
 else:
     st.warning("No se encontraron datos.")
