@@ -25,7 +25,5 @@ def get_data():
 # Obtener los datos de la API
 data = get_data()
 
-# Mostrar los datos en Streamlit
-if data:
-    st.title("Datos de la API CRUD Google Sheets")
-    st.write(data)
+st.title("Datos de la API CRUD Google Sheets")
+st.write(data)
