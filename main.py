@@ -26,9 +26,6 @@ def get_data():
 # Obtener los datos de la API
 data = get_data()
 
-
-
-
 # Obtener las categorías
 opcion_crud = ['','insertar','borrar','modificar']
 
@@ -71,7 +68,7 @@ if selected_opcion_crud == 'modificar':
 if data is not None and not data.empty:
     st.title("Datos de la API CRUD Google Sheets")
    
-    st.write(f"Datos de la categoría '{selected_category}'")
+    
     st.write(data)
 else:
     st.warning("No se encontraron datos.")
