@@ -75,12 +75,13 @@ if selected_opcion_crud == 'modificar':
             response = update_data(selected_id_list, selected_category, selected_productos, precio, selected_descuento)
             if response.status_code == 200:
                 st.success("Datos modificados exitosamente")
+                st.empty()
+                data = get_data()
             else:
                 st.error(f"Hubo un error al modificar los datos")
 
             # Limpiar el contenido actual
-            st.empty()
-            data = get_data()
+
     else:
 
         st.warning("No se encontraron IDs para la categoría seleccionada.")
