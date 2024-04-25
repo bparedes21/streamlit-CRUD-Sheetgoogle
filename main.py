@@ -23,7 +23,7 @@ def get_data():
         return None
 
 # Obtener los datos de la API
-data = get_data()
+#data = get_data()
 
 st.title("Datos de la API CRUD Google Sheets")
-st.write(data)
+#st.write(data)
