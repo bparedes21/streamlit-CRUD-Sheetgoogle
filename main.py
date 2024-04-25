@@ -76,7 +76,7 @@ if selected_opcion_crud == 'modificar':
             if response.status_code == 200:
                 st.success("Datos modificados exitosamente")
             else:
-                st.error(f"Hubo un error al modificar los datos: {response.json()['message']}")
+                st.error(f"Hubo un error al modificar los datos")
         
     else:
 
