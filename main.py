@@ -15,7 +15,7 @@ def load_page(page_name):
     page_path = os.path.join(os.getcwd(), page_name)
     with open(page_path, "r") as file:
         code = file.read()
-    st.code(code, language='python')
+    exec(code)
 
 if __name__ == "__main__":
     main()
