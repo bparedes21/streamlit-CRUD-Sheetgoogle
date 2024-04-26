@@ -40,7 +40,7 @@ def update_data(id_value, product, price, category, discount):
     except requests.RequestException as e:
         return {"status_code": 500, "message": str(e)}
 
-def main():
+def main_mr():
     st.set_page_config(
         page_title="Gestión de Hoja de Cálculo",
         page_icon="📊",

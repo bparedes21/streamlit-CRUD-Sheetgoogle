@@ -2,47 +2,41 @@ import streamlit as st
 import requests
 import pandas as pd
 
-def main():
+
+
+def get_data():
+        # URL de tu API de FastAPI
+    api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
+
+    try:
+        response = requests.get(f"{api_url}/read")
+        data = response.json()
+
+        if response.status_code == 200:
+            data = data[0]
+            list_data = data['data']
+            df = pd.DataFrame(list_data)
+            return df
+        else:
+            st.error(data)
+            return None
+    except requests.RequestException as e:
+        st.error(f"Error al conectar con la API: {e}")
+        return None
+
+def delete_row(id):
+    url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
     
-    def get_data():
-            # URL de tu API de FastAPI
-        api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
-
-        try:
-            response = requests.get(f"{api_url}/read")
-            data = response.json()
-
-            if response.status_code == 200:
-                data = data[0]
-                list_data = data['data']
-                df = pd.DataFrame(list_data)
-                return df
-            else:
-                st.error(data)
-                return None
-        except requests.RequestException as e:
-            st.error(f"Error al conectar con la API: {e}")
-            return None
-
-    def delete_row(id):
-        url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
-        
-        try:
-            response = requests.delete(url)
-            if response.status_code == 200:
-                return True
-            else:
-                return False
-        except requests.exceptions.RequestException as e:
-            st.error(f"Error de conexión: {e}")
-            return None
-        
-    st.set_page_config(
-    page_title="Gestion de Hoja de Cálculo",
-    page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded"
-    )
+    try:
+        response = requests.delete(url)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error de conexión: {e}")
+        return None
+def main_br():   
     # Obtener los datos de la API
     data = get_data()
     st.title("BORRAR Datos de la tabla Productos en Google Sheets")

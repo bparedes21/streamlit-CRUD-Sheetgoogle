@@ -44,7 +44,6 @@ def update_data(id_value, product, price, category, discount):
         return {"status_code": 500, "message": str(e)}
 
 def main_mr():
-  
     
     data = get_data()
 
@@ -86,6 +85,133 @@ def main_mr():
     else:
         st.warning("No se encontraron datos.")
 
+def insert_data(product, price, category, discount):
+    url = "https://python-fastapi-iamgod.koyeb.app/insert"
+    payload = {
+        "column1": product,
+        "column2": price,
+        "column3": category,
+        "column4": discount
+    }
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()  # Check for errors in the response
+        data = response.json()
+        return data
+
+    except requests.RequestException as e:
+        # Log the error
+        print(f"Error inserting data: {e}")
+        return None
+
+def main_sr():
+
+    data = get_data()
+    st.title("📝 INSERTAR Datos de la tabla Productos en Google Sheets")
+
+    categories = ['Almacen', 'Mascotas', 'Bebidas y bodega']
+
+    # Definir los productos para cada categoría junto con sus emojis correspondientes
+    productos = {
+        'Almacen': [('🍝', 'Fideos'), ('🍚', 'Arroz'), ('🍅', 'Pure de Tomate')],
+        'Mascotas': [('🐶', 'Alimento para perro'), ('🐱', 'Alimento para gato'), ('🐰', 'Alimento para conejo')],
+        'Bebidas y bodega': [('🥤', 'Gaseosa'), ('💧', 'Agua'), ('🍷', 'Vino')]
+    }
+
+    st.subheader("Ingrese los datos:")
+    # Crear menú desplegable con las categorías
+    selected_category = st.selectbox("Selecciona una categoría:", categories)
+
+    productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
+    productos_sin_emojis = [producto[1] for producto in productos[selected_category]]
+
+    # Crear el selectbox para los productos
+    selected_productos = st.selectbox("Seleccione un producto:", productos_emojis)
+
+    # Obtener el producto sin emojis correspondiente al seleccionado
+    selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
+
+    descuento = ["0", "10", "20", "30"]
+    selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
+
+    precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
+    # Asegurarse de que el valor se trate como un flotante
+    precio = round(float(precio), 2)
+    precio_str = str(precio)
+
+    # Obtener emoji correspondiente a la categoría seleccionada
+    category_emoji = {
+        'Almacen': '🏬',
+        'Mascotas': '🐾',
+        'Bebidas y bodega': '🍷'
+    }
+    st.subheader("Datos:")
+    st.write("Producto:", selected_productos)
+    st.write("Precio:", precio_str)
+    st.write("Categoría:", category_emoji[selected_category], selected_category)
+    st.write("Descuento:", selected_descuento)
+    if st.button("insertar"):# Verificar tipos de datos
+
+        response = insert_data(selected_producto_sin_emojis, precio_str , selected_category , selected_descuento)
+        
+        if response[1] == 200:
+            st.empty()
+            data = get_data()
+            st.success("Datos insertados exitosamente")
+        else:
+            st.error(f"Hubo un error al insertar los datos: {response.text}")
+
+
+    # Mostrar los datos en Streamlit
+    if data is not None and not data.empty:
+        st.subheader("Tabla Productos en Google Sheets")
+        st.write(data)
+    else:
+        st.warning("No se encontraron datos.")
+
+
+def delete_row(id):
+    url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
+    
+    try:
+        response = requests.delete(url)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error de conexión: {e}")
+        return None
+
+
+def main_br():   
+    # Obtener los datos de la API
+    data = get_data()
+    st.title("BORRAR Datos de la tabla Productos en Google Sheets")
+    # Obtener la lista de valores de la columna "ID"
+    id_list = data['ID'].tolist()
+    if len(id_list)!=0:
+        selected_id_list= st.selectbox("Selecciona un ID de la tabla Productos:", id_list)  
+        # Botón para enviar el ID a eliminar
+        if st.button("Eliminar"):
+            response =  delete_row(selected_id_list)
+            data = get_data()
+            if response.status_code == 200:
+                st.success("Registro eliminado exitosamente")
+            else:
+                st.error(f"Hubo un error al eliminar el registro: {response.json()['message']}")
+        
+    else:
+
+        st.warning("No se encontraron IDs para la categoría seleccionada.")
+
+    # Mostrar los datos en Streamlit
+    if data is not None and not data.empty:
+        st.subheader("Tabla Productos en Google Sheets")
+        st.write(data)
+    else:
+        st.warning("No se encontraron datos.")
+        
 
 def main():
     st.set_page_config(
@@ -121,9 +247,9 @@ def main():
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
-        br
+        main_sr()
     elif page == "Insertar":
-        sr
+        main_sr()
 
 if __name__ == "__main__":
     main()
