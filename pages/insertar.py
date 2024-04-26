@@ -4,7 +4,7 @@ from pages.funciones_crud import get_data, insert_data
 # Obtener los datos de la API
 data = get_data()
 
-
+st.title("INSERTAR Datos de la tabla Productos en Google Sheets")
   
 categories = ['Almacen','Mascotas','Bebidas y bodega']
 productos_Almacen = ['Fideos','Arroz','Pure de Tomate']
@@ -24,7 +24,7 @@ descuento = ['0','10','20','30']
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 precio = st.text_input("Ingresar precio:")
 
-if st.button("Modificar"):
+if st.button("insertar"):
     response = insert_data( selected_category, selected_productos, precio, selected_descuento)
     if response.status_code == 200:
         
@@ -37,7 +37,7 @@ if st.button("Modificar"):
 
 # Mostrar los datos en Streamlit
 if data is not None and not data.empty:
-    st.title("Datos de la API CRUD Google Sheets")
+    st.subheader("Tabla Productos en Google Sheets")
     st.write(data)
 else:
     st.warning("No se encontraron datos.")

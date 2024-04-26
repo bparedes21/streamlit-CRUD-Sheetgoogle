@@ -25,7 +25,7 @@ else:
 
 # Mostrar los datos en Streamlit
 if data is not None and not data.empty:
-    st.title("Tabla Productos Google Sheets")
+    st.subheader("Tabla Productos en Google Sheets")
     st.write(data)
 else:
     st.warning("No se encontraron datos.")
