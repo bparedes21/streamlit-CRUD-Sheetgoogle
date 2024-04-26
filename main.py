@@ -1,12 +1,13 @@
 import streamlit as st
 
+# Set page configuration
 st.set_page_config(
     page_title="Gestion de Hoja de Calculo",
     page_icon="🧊",
     layout="wide",
     initial_sidebar_state="expanded",
-    show_sidebar_navigation=False
 )
+
 # Dictionary with page names and URLs
 pages = {
     "Borrar": "/borrar",
@@ -17,5 +18,11 @@ pages = {
 # Display navigation menu
 st.sidebar.title("Navegación")
 
-for page_name, page_url in pages.items():
-    st.sidebar.markdown(f"[{page_name}]({page_url})")
+selected_page = st.sidebar.radio("Seleccionar página:", list(pages.keys()))
+
+if selected_page == "Borrar":
+    st.write("You selected Borrar")
+elif selected_page == "Insertar":
+    st.write("You selected Insertar")
+elif selected_page == "Modificar":
+    st.write("You selected Modificar")
