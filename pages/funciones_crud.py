@@ -1,7 +1,4 @@
-import requests
-import streamlit as st
-import pandas as pd
-# Función para obtener los datos de la API
+
 def get_data():
         # URL de tu API de FastAPI
     api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
