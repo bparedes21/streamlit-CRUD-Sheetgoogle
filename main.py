@@ -1,5 +1,5 @@
 import streamlit as st
-import os
+import pages.modificar as md
 
 def main():
     st.set_page_config(
@@ -9,13 +9,7 @@ def main():
         initial_sidebar_state="expanded"
     )
 
-    load_page("pages/modificar.py")
-
-def load_page(page_name):
-    page_path = os.path.join(os.getcwd(), page_name)
-    with open(page_path, "r") as file:
-        code = file.read()
-    exec(code)
+    md.main()
 
 if __name__ == "__main__":
     main()
