@@ -48,6 +48,8 @@ descuento = ["0","10","20","30"]
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
 precio = st.number_input ('Ingrese un precio:', min_value=0.0, format="%.2f")
+# Ensure the value is treated as a float
+precio = round(float(precio), 2)
 precio_str=str(precio)
 st.write("Producto:", selected_productos)
 st.write("Precio:", precio_str)
