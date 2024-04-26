@@ -14,10 +14,16 @@ def update_data(id_value, product, price, category, discount):
         "column3": category,
         "column4": discount
     }
-    response = requests.put(url, json=payload)
-    return response
-
-
+    
+    try:
+        response = requests.put(url, json=payload)
+        response.raise_for_status()  # Verificar si hay errores en la respuesta
+        data = response.json()
+        # Resto del código para procesar la respuesta
+        return data
+    except requests.RequestException as e:
+        return None
+    
 data = get_data()
 st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 # Obtener la lista de valores de la columna "ID"
@@ -42,11 +48,10 @@ if len(id_list)!=0:
     descuento = ["0","10","20","30"]
     selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
     precio = st.text_input("Ingresar precio:")
-
+    selected_id_list_str=str(selected_id_list)
     if st.button("Modificar"):
-        response = update_data(str(selected_id_list),selected_productos, precio , selected_category , descuento)
-        if response.status_code == 200:
-            
+        response = update_data(selected_id_list_str,selected_productos, precio , selected_category , descuento)
+        if response[1] == 200:
             st.empty()
             data = get_data()
             st.success("Datos modificados exitosamente")
