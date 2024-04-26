@@ -65,8 +65,17 @@ if len(id_list)!=0:
     st.subheader("Ingrese los datos a modificar:")
     # Crear menú desplegable con las categorías
     selected_category = st.selectbox("Selecciona una categoría:", list(productos.keys()))
-    selected_productos = st.selectbox("Seleccione un producto:", [producto[0] + " " + producto[1] for producto in productos[selected_category]])
-    selected_productos_sin_emoji = st.selectbox("Seleccione un producto:", [producto[1] for producto in productos[selected_category]])
+    # Obtener los productos con emojis y sin emojis
+
+    productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
+    productos_sin_emojis = [producto[1] for producto in productos[selected_category]]
+
+    # Crear el selectbox para los productos
+    selected_productos = st.selectbox("Seleccione un producto:", productos_emojis)
+
+    # Obtener el producto sin emojis correspondiente al seleccionado
+    selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
+
 
     descuento = ["0","10","20","30"]
     selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
@@ -84,7 +93,7 @@ if len(id_list)!=0:
     st.write("Descuento:", "🔖 " + selected_descuento)
     
     if st.button("Modificar"):
-        response = update_data(selected_id_list_str,selected_productos_sin_emoji, precio_str , selected_category , selected_descuento)
+        response = update_data( selected_id_list_str, selected_producto_sin_emojis , precio_str , selected_category , selected_descuento)
         if 'status_code' in response and response['status_code'] == 200:
 
             st.empty()
