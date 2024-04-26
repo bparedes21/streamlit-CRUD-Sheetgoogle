@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
+
 from pages.modificar import main as md
 import pages.borrar as br
 import pages.insertar as sr
@@ -56,7 +57,7 @@ def main():
             st.write(data)
 
     elif page == "Modificar":
-        md
+        md()
     elif page == "Borrar":
         br
     elif page == "Insertar":
