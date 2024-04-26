@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 import pandas as pd
 
-from pages.funciones_crud import get_data, insert_data
+from pages.funciones_crud import get_data
 
 
 

@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 import pandas as pd
-from pages.funciones_crud import get_data, update_data
+from pages.funciones_crud import get_data
 
 
 def update_data(id_value, product, price, category, discount):
