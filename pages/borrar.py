@@ -29,12 +29,13 @@ def delete_row(id):
     try:
         response = requests.delete(url)
         if response.status_code == 200:
-            return f"La fila con ID {id} fue eliminada exitosamente."
+            return True
         else:
-            return f"Error al eliminar la fila con ID {id}. Estado de la respuesta: {response.status_code}"
+            return False
     except requests.exceptions.RequestException as e:
-        return f"Error de conexión: {e}"
-    
+        st.error(f"Error de conexión: {e}")
+        return None
+
 # Obtener los datos de la API
 data = get_data()
 st.title("BORRAR Datos de la tabla Productos en Google Sheets")
