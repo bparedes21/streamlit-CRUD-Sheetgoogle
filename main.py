@@ -1,9 +1,9 @@
 import streamlit as st
 import requests
 import pandas as pd
-import .pages.modificar as md
-import .pages.borrar as br
-import .pages.insertar as sr
+from pages.modificar import main as md
+import pages.borrar as br
+import pages.insertar as sr
 def get_data():
     # URL de tu API de FastAPI
     api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
@@ -56,11 +56,11 @@ def main():
             st.write(data)
 
     elif page == "Modificar":
-        md.main()
+        md
     elif page == "Borrar":
-        br.main()
+        br
     elif page == "Insertar":
-        sr.main()
+        sr
 
 if __name__ == "__main__":
     main()
