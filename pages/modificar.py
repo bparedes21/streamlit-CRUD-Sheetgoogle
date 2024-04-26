@@ -1,9 +1,23 @@
 import requests
 import streamlit as st
 import pandas as pd
-from pages.funciones_crud import get_data, update_data
-# Obtener los datos de la API
-data=pd.DataFrame()
+from pages.funciones_crud import get_data
+
+# Función para realizar la solicitud POST al endpoint de actualización
+def update_data(id_value, product, price, category, discount):
+    # URL de tu API de FastAPI
+    api_url = "https://python-fastapi-iamgod.koyeb.app/update/"  # Actualiza con la URL de tu API
+    url = api_url + id_value
+    payload = {
+        "column1": product,
+        "column2": price,
+        "column3": category,
+        "column4": discount
+    }
+    response = requests.put(url, json=payload)
+    return response
+
+
 data = get_data()
 st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 # Obtener la lista de valores de la columna "ID"
