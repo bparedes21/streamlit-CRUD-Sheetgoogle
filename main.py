@@ -28,7 +28,21 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.title("Bienvenido")
+st.markdown(
+    """
+    <style>
+    .sidebar .sidebar-content .sidebar-section h2 {
+        font-size: 16px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Set title in the sidebar with reduced font size
+st.sidebar.title("Navegación")
+st.sidebar.title("Bievenido/a Navege")
+st.sidebar.subheader("A través del menú de la izquierda")
 page_explanations = {
     "Borrar": "Eliminar datos de la hoja de cálculo.",
     "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
