@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
-from pages.funciones_crud import get_data, delete_row
+
 
 def get_data():
         # URL de tu API de FastAPI
@@ -34,7 +34,7 @@ def delete_row(id):
             return f"Error al eliminar la fila con ID {id}. Estado de la respuesta: {response.status_code}"
     except requests.exceptions.RequestException as e:
         return f"Error de conexión: {e}"
-        
+    
 # Obtener los datos de la API
 data = get_data()
 st.title("BORRAR Datos de la tabla Productos en Google Sheets")
