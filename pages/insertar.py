@@ -105,4 +105,7 @@ def main():
         st.subheader("Tabla Productos en Google Sheets")
         st.write(data)
     else:
-    st.warning("No se encontraron datos.")
+        st.warning("No se encontraron datos.")
+
+if __name__ == "__main__":
+    main()

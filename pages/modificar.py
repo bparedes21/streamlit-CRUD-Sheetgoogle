@@ -117,3 +117,6 @@ def main():
         st.write(data)
     else:
         st.warning("No se encontraron datos.")
+        
+if __name__ == "__main__":
+    main()
