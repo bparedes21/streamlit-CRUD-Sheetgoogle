@@ -26,7 +26,7 @@ def get_data():
 def update_data(id_value, category, product, price, discount):
     # URL de tu API de FastAPI
     api_url = "https://python-fastapi-iamgod.koyeb.app/update/"  # Actualiza con la URL de tu API
-    url = api_url + {id_value}
+    url = api_url + id_value
     payload = {
         "column1": product,
         "column2": price,

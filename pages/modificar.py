@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 from pages.funciones_crud import get_data, update_data
 # Obtener los datos de la API
+data=pd.DataFrame()
 data = get_data()
 st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 # Obtener la lista de valores de la columna "ID"
