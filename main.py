@@ -221,7 +221,10 @@ def main():
         layout="wide",
         initial_sidebar_state="expanded"
     )
+        
+    st.sidebar.title("👋 ¡Bienvenido/a!")
 
+    st.sidebar.subheader("Navegue a través del menú:")
     page = st.sidebar.selectbox(
         "Seleccione una página:",
         ("Inicio","Modificar", "Borrar", "Insertar")
@@ -229,9 +232,7 @@ def main():
 
     if page == "Inicio":
         with st.container():
-            st.sidebar.title("👋 ¡Bienvenido/a!")
 
-            st.sidebar.subheader("Navegue a través del menú:")
             page_explanations = {
             "Inicio": "Ver la lista de datos.",
             "Modificar": "Modificar datos existentes en la hoja de cálculo.",
