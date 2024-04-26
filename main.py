@@ -1,20 +1,21 @@
 import streamlit as st
-import streamlit.components.v1 as components
+import os
 
 def main():
-    st.title("Navegación entre páginas en Streamlit")
+    st.set_page_config(
+        page_title="Gestion de Hoja de Cálculo",
+        page_icon="📊",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
 
-    # Botón para cargar la página modificar.py
-    if st.button("Ir a la página 'Modificar'"):
-        load_page("pages/modificar.py")
+    load_page("pages/modificar.py")
 
 def load_page(page_name):
-    with open(page_name, "r") as file:
-        page_code = file.read()
-    components.html(page_code, width=1000, height=800, scrolling=True)
+    page_path = os.path.join(os.getcwd(), page_name)
+    with open(page_path, "r") as file:
+        code = file.read()
+    st.code(code, language='python')
 
 if __name__ == "__main__":
     main()
-
-
-
