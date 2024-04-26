@@ -7,17 +7,15 @@ import pages.borrar
 
 st.title("Elegir una opcion: 'insertar','borrar' o 'modificar")
 # Obtener las categorías
-opcion_crud = ['','insertar','borrar','modificar']
 
-# Crear menú desplegable con las categorías
-selected_opcion_crud = st.selectbox("Opcion Sheet:", opcion_crud)
+# Create a sidebar with options for the pages
+selected_page = st.sidebar.radio("Seleccionar página:", ["Modificar", "Insertar", "Borrar"])
+
 
     # Redirigir a la página correspondiente
-if selected_opcion_crud == 'insertar':
+if selected_page == 'Insertar':
     pages.insertar.show_page()
-elif selected_opcion_crud == 'borrar':
+elif selected_page == 'Borrar':
     pages.borrar.show_page()
-elif selected_opcion_crud == 'modificar':
-    st.write("Página de modificar")
-    # Redireccionar a la página de modificar
+elif selected_page == 'Modificar':
     pages.modificar.show_page()

@@ -24,6 +24,6 @@ def get_data():
 
 
 def delete_row(id):
-    url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
+    url= f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
     response = requests.delete(url)
     return response
