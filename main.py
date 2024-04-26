@@ -170,19 +170,17 @@ def main_sr():
         st.warning("No se encontraron datos.")
 
 
-def delete_row(id):
-    url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
-    
+def delete_data(id):
+    # URL de la API para borrar datos
+    api_url = "https://python-fastapi-iamgod.koyeb.app/delete/"
+
     try:
-        response = requests.delete(url)
-        if response.status_code == 200:
-            return True
-        else:
-            return False
-    except requests.exceptions.RequestException as e:
+        # Realizar la solicitud DELETE
+        response = requests.delete(api_url + str(id))
+        return response
+    except requests.RequestException as e:
         st.error(f"Error de conexión: {e}")
         return None
-
 
 def main_br():   
     # Obtener los datos de la API
@@ -193,14 +191,17 @@ def main_br():
     if len(id_list)!=0:
         selected_id_list= st.selectbox("Selecciona un ID de la tabla Productos:", id_list)  
         # Botón para enviar el ID a eliminar
-        if st.button("Eliminar"):
-            response =  delete_row(selected_id_list)
-            data = get_data()
-            if response.status_code == 200:
-                st.success("Registro eliminado exitosamente")
+        if st.button("Borrar"):
+            # Llamar a la función delete_data para borrar el registro seleccionado
+            response = delete_data(selected_id_list)
+            
+            # Verificar si la solicitud fue exitosa
+            if response is not None and response.status_code == 200:
+                st.success("Datos borrados exitosamente")
+                # Actualizar los datos después del borrado
+                data = get_data()
             else:
-                st.error(f"Hubo un error al eliminar el registro: {response.json()['message']}")
-        
+                st.error("Hubo un error al borrar los datos")
     else:
 
         st.warning("No se encontraron IDs para la categoría seleccionada.")
