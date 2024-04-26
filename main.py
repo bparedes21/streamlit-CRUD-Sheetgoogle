@@ -1,11 +1,21 @@
-import streamlit as st
 from .pages.funciones_crud import *
+import streamlit as st
+
 # Explanation for each page
 page_explanations = {
     "Borrar": "Eliminar datos de la hoja de cálculo.",
     "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
     "Modificar": "Modificar datos existentes en la hoja de cálculo."
 }
+
+# Set page configuration
+st.set_page_config(
+    page_title="Gestion de Hoja de Calculo",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    show_sidebar_navigation=True  # To show the sidebar navigation
+)
 
 selected_page = st.sidebar.radio("Seleccionar página:", list(page_explanations.keys()), index=-1)
 
