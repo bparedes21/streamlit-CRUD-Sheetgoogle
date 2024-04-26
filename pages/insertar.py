@@ -1,5 +1,5 @@
 import streamlit as st
-from .funciones_crud import get_data, insert_data
+from pages.funciones_crud import get_data, insert_data
 
 # Obtener los datos de la API
 data = get_data()

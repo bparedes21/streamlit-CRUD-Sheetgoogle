@@ -3,6 +3,7 @@ import streamlit as st
 import pages.modificar
 import pages.insertar
 import pages.borrar
+from pages.funciones_crud import *
 
 st.title("Elegir una opcion: 'insertar','borrar' o 'modificar")
 # Obtener las categorías
