@@ -82,7 +82,7 @@ category_emoji = {
     'Mascotas': '🐾',
     'Bebidas y bodega': '🍷'
 }
-
+st.subheader("Datos:")
 st.write("Producto:", selected_productos)
 st.write("Precio:", precio_str)
 st.write("Categoría:", category_emoji[selected_category], selected_category)

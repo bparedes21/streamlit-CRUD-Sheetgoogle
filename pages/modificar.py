@@ -86,6 +86,7 @@ if len(id_list)!=0:
     precio_str=str(precio)
     selected_id_list_str=str(selected_id_list)
     
+    st.subheader("Datos:")
     st.write("Id:", "🔢 " + selected_id_list_str)
     st.write("Producto:", selected_productos)
     st.write("Precio:", "💰 " + precio_str)
