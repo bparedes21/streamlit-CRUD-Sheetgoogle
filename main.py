@@ -21,7 +21,14 @@ def get_data():
     except requests.RequestException as e:
         st.error(f"Error al conectar con la API: {e}")
         return None
-
+# Set page configuration
+st.set_page_config(
+    page_title="Gestion de Hoja de Calculo",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    show_sidebar_navigation=True
+)
 st.title("Bienvenido")
 
 page_explanations = {
