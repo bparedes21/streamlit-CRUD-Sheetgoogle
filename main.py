@@ -114,7 +114,7 @@ def insert_data(product, price, category, discount):
         # Log the error
         print(f"Error inserting data: {e}")
         return None
-        
+    
 def main_sr():
     data = get_data()
     st.title("📝 INSERTAR Datos de la tabla Productos en Google Sheets")
@@ -133,8 +133,7 @@ def main_sr():
     }
 
     st.subheader("Ingrese los datos:")
-    selected_category = st.selectbox("Selecciona una categoría:", categories)
-
+    selected_category = st.selectbox("Selecciona una categoría:", list(productos.keys()), format_func=lambda x: f"{category_emoji[x]} {x}")
     productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
     productos_sin_emojis = [producto[1] for producto in productos[selected_category]]
 
@@ -152,7 +151,7 @@ def main_sr():
     st.subheader("Datos:")
     st.write("Producto:", selected_productos)
     st.write("Precio:", precio_str)
-    st.write("Categoría:", category_emoji[selected_category], selected_category)
+    st.write("Categoría:", f"{category_emoji[selected_category]} {selected_category}")
     st.write("Descuento:", selected_descuento)
 
     if st.button("Insertar"):
