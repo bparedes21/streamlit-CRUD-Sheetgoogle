@@ -28,7 +28,7 @@ st.set_page_config(
     page_icon="🧊",
     layout="wide",
     initial_sidebar_state="expanded",
-    show_sidebar_nav=True  # Corrected parameter name
+    show_sidebar_nav=False  # Corrected parameter name
 )
 st.title("Bienvenido")
 
@@ -37,19 +37,4 @@ page_explanations = {
     "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
     "Modificar": "Modificar datos existentes en la hoja de cálculo."
 }
-
-st.sidebar.title("Navegación")
-selected_page = st.sidebar.radio("Seleccionar página:", list(page_explanations.keys()))
-
-# Display explanation for selected page
-if selected_page in page_explanations:
-    st.sidebar.subheader(page_explanations[selected_page])
-
-# Display content for selected page
-if selected_page == "Borrar":
-    data = get_data()
-    st.write(data)  # Display the fetched data
-elif selected_page == "Insertar":
-    st.write("You selected Insertar")
-elif selected_page == "Modificar":
-    st.write("You selected Modificar")
+st.write(page_explanations)
