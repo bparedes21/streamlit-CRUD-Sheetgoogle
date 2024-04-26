@@ -59,10 +59,14 @@ st.subheader("Ingrese los datos:")
 # Crear menú desplegable con las categorías
 selected_category = st.selectbox("Selecciona una categoría:", categories)
 
-# Obtener los productos según la categoría seleccionada
-selected_productos = st.selectbox("Seleccione un producto:", [emoji + " " + producto for emoji, producto in productos[selected_category]])
+productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
+productos_sin_emojis = [producto[1] for producto in productos[selected_category]]
 
-selected_productos_sin_emoji = st.selectbox("Seleccione un producto:", [producto[1] for producto in productos[selected_category]])
+# Crear el selectbox para los productos
+selected_productos = st.selectbox("Seleccione un producto:", productos_emojis)
+
+# Obtener el producto sin emojis correspondiente al seleccionado
+selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
 
 descuento = ["0", "10", "20", "30"]
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
@@ -85,7 +89,7 @@ st.write("Categoría:", category_emoji[selected_category], selected_category)
 st.write("Descuento:", selected_descuento)
 if st.button("insertar"):# Verificar tipos de datos
 
-    response = insert_data(selected_productos_sin_emoji, precio_str , selected_category , selected_descuento)
+    response = insert_data(selected_producto_sin_emojis, precio_str , selected_category , selected_descuento)
     
     if response[1] == 200:
         st.empty()
