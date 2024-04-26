@@ -22,6 +22,13 @@ def get_data():
         st.error(f"Error al conectar con la API: {e}")
         return None
 
+
+
+def delete_row(id):
+    url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
+    response = requests.delete(url)
+    return response
+
 # Función para realizar la solicitud POST al endpoint de actualización
 def update_data(id_value, product, price, category, discount):
     # URL de tu API de FastAPI
@@ -33,11 +40,30 @@ def update_data(id_value, product, price, category, discount):
         "column3": category,
         "column4": discount
     }
-    response = requests.put(url, json=payload)
-    return response
+    
+    try:
+        response = requests.put(url, json=payload)
+        response.raise_for_status()  # Verificar si hay errores en la respuesta
+        data = response.json()
+        # Resto del código para procesar la respuesta
+        return data
+    except requests.RequestException as e:
+        return None
 
-
-def delete_row(id):
-    url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
-    response = requests.delete(url)
-    return response
+def insert_data(product, price, category, discount):
+    url = "https://python-fastapi-iamgod.koyeb.app/insert"
+    payload = {
+        "column1": product,
+        "column2": price,
+        "column3": category,
+        "column4": discount
+    }
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()  # Verificar si hay errores en la respuesta
+        data = response.json()
+        # Resto del código para procesar la respuesta
+        return data
+    except requests.RequestException as e:
+        
+        return None

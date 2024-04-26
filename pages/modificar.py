@@ -1,28 +1,9 @@
 import requests
 import streamlit as st
 import pandas as pd
-from pages.funciones_crud import get_data
+from pages.funciones_crud import get_data, update_data
 
-# Función para realizar la solicitud POST al endpoint de actualización
-def update_data(id_value, product, price, category, discount):
-    # URL de tu API de FastAPI
-    api_url = "https://python-fastapi-iamgod.koyeb.app/update/"  # Actualiza con la URL de tu API
-    url = api_url + id_value
-    payload = {
-        "column1": product,
-        "column2": price,
-        "column3": category,
-        "column4": discount
-    }
-    
-    try:
-        response = requests.put(url, json=payload)
-        response.raise_for_status()  # Verificar si hay errores en la respuesta
-        data = response.json()
-        # Resto del código para procesar la respuesta
-        return data
-    except requests.RequestException as e:
-        return None
+
 data=pd.DataFrame()
 data = get_data()
 
