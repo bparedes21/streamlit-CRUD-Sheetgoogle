@@ -8,17 +8,10 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Dictionary with page names and URLs
-pages = {
-    "Borrar": "/borrar",
-    "Insertar": "/insertar",
-    "Modificar": "/modificar"
-}
-
 # Display navigation menu
 st.sidebar.title("Navegación")
 
-selected_page = st.sidebar.radio("Seleccionar página:", list(pages.keys()))
+selected_page = st.sidebar.radio("Seleccionar página:", ["Borrar", "Insertar", "Modificar"])
 
 if selected_page == "Borrar":
     st.write("You selected Borrar")
