@@ -38,18 +38,19 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+# Define el encabezado
+with st.container():
+    # Set title in the sidebar with reduced font size
+    st.sidebar.title("Navegación")
+    st.sidebar.title("Bievenido/a Navege")
+    st.sidebar.subheader("A través del menú de la izquierda")
+    page_explanations = {
+        "Borrar": "Eliminar datos de la hoja de cálculo.",
+        "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
+        "Modificar": "Modificar datos existentes en la hoja de cálculo."
+    }
 
-# Set title in the sidebar with reduced font size
-st.sidebar.title("Navegación")
-st.sidebar.title("Bievenido/a Navege")
-st.sidebar.subheader("A través del menú de la izquierda")
-page_explanations = {
-    "Borrar": "Eliminar datos de la hoja de cálculo.",
-    "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
-    "Modificar": "Modificar datos existentes en la hoja de cálculo."
-}
-
-for page, explanation in page_explanations.items():
-    st.write(f"{page}: {explanation}")
-data = get_data()
-st.write(data)
+    for page, explanation in page_explanations.items():
+        st.write(f"{page}: {explanation}")
+    data = get_data()
+    st.write(data)
