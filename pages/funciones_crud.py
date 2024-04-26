@@ -37,6 +37,7 @@ def update_data(id_value, category, product, price, discount):
     return response
 
 # Función para realizar la solicitud POST al endpoint de inserción
+
 def insert_data(product, price, category, discount):
     url = "https://python-fastapi-iamgod.koyeb.app/insert"
     payload = {
@@ -45,8 +46,16 @@ def insert_data(product, price, category, discount):
         "column3": category,
         "column4": discount
     }
-    response = requests.post(url, json=payload)
-    return response
+    
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()  # Verificar si hay errores en la respuesta
+        data = response.json()
+        # Resto del código para procesar la respuesta
+        return data
+    except requests.RequestException as e:
+        
+        return None
 
 def delete_row(id):
     url = f"https://python-fastapi-iamgod.koyeb.app/delete/{id}"
