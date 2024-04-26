@@ -63,10 +63,16 @@ def main_mr():
         productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
         selected_product = st.selectbox("Seleccione un producto:", productos_emojis)
         selected_discount = st.selectbox("Seleccione un descuento:", ["0", "10", "20", "30"])
-        selected_price = st.number_input("Ingrese un precio:", min_value=0.0, format="%.2f")
-            # Asegurarse de que el valor se trate como un flotante
+        precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
+        # Asegurarse de que el valor se trate como un flotante
         precio = round(float(precio), 2)
         precio_str = str(precio)
+        st.subheader("Datos:")
+        st.write("Producto:", selected_product)
+        st.write("Precio:", precio_str)
+        st.write("Categoría:", selected_category)
+        st.write("Descuento:", selected_discount)
+
         if st.button("Modificar"):
             response = update_data(selected_id, selected_product, precio_str, selected_category, selected_discount)
             if response["status_code"] == 200:
