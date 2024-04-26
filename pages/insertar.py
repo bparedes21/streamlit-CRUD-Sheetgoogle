@@ -43,6 +43,13 @@ def main():
             # Log the error
             print(f"Error inserting data: {e}")
             return None
+            
+    st.set_page_config(
+    page_title="Gestion de Hoja de Cálculo",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+    )
 
     data = get_data()
     st.title("📝 INSERTAR Datos de la tabla Productos en Google Sheets")

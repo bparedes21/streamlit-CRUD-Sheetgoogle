@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 
 def main():
+    
     def get_data():
             # URL de tu API de FastAPI
         api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
@@ -35,7 +36,13 @@ def main():
         except requests.exceptions.RequestException as e:
             st.error(f"Error de conexión: {e}")
             return None
-
+        
+    st.set_page_config(
+    page_title="Gestion de Hoja de Cálculo",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+    )
     # Obtener los datos de la API
     data = get_data()
     st.title("BORRAR Datos de la tabla Productos en Google Sheets")
