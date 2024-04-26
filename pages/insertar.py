@@ -47,23 +47,17 @@ elif selected_category == 'Bebidas y bodega':
 descuento = ["0","10","20","30"]
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
-precio = None
+# Function to check if input is numeric
+def is_numeric(input_str):
+    try:
+        float(input_str)
+        return True
+    except ValueError:
+        return False
 
-while precio is None:
-    precio_input = st.text_input("Ingresar precio:")
-
-    # Function to check if input is numeric
-    def is_numeric(input_str):
-        try:
-            float(input_str)
-            return True
-        except ValueError:
-            return False
-
-    if precio_input and is_numeric(precio_input):
-        precio = float(precio_input)
-    elif precio_input:
-        st.error("El precio debe ser un número.")
+while not is_numeric(precio) or precio != "":
+    st.error("El precio debe ser un número.")
+    precio = st.text_input("Ingresar precio:")
 
 st.write("Producto:", selected_productos)
 st.write("Precio:", precio)
