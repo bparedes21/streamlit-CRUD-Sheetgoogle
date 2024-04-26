@@ -2,8 +2,6 @@ import streamlit as st
 import requests
 import pandas as pd
 
-import pages.borrar as br
-import pages.insertar as sr
 def get_data():
     # URL de tu API de FastAPI
     api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
