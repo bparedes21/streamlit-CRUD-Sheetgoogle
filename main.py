@@ -55,11 +55,11 @@ def main():
             data = get_data()
             st.write(data)
     if page == "Modificar":
-        md
+        md.main()
     elif page == "Borrar":
-        br
+        br.main()
     elif page == "Insertar":
-        sr
+        sr.main()
 
 if __name__ == "__main__":
     main()
