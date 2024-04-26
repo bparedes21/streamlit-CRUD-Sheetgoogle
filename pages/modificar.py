@@ -51,7 +51,7 @@ if len(id_list)!=0:
     selected_id_list_str=str(selected_id_list)
     if st.button("Modificar"):
         response = update_data(selected_id_list_str,selected_productos, precio , selected_category , descuento)
-        if response[1] == 200:
+        if response['status_code'] == 200:
             st.empty()
             data = get_data()
             st.success("Datos modificados exitosamente")
