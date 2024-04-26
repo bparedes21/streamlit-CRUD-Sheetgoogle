@@ -247,7 +247,7 @@ def main():
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
-        main_sr()
+        main_br()
     elif page == "Insertar":
         main_sr()
 
