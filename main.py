@@ -57,7 +57,7 @@ def main():
             st.write(data)
 
     elif page == "Modificar":
-        md()
+        md.main()
     elif page == "Borrar":
         br
     elif page == "Insertar":
