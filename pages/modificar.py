@@ -6,7 +6,7 @@ from pages.funciones_crud import get_data
 # Función para realizar la solicitud POST al endpoint de actualización
 def update_data(id_value, product, price, category, discount):
     # URL de tu API de FastAPI
-    api_url = "https://python-fastapi-iamgod.koyeb.app/update/"  # Actualiza con la URL de tu API
+    api_url = "https://python-fastapi-iamgod.koyeb.app/update"  # Actualiza con la URL de tu API
     url = api_url + id_value
     payload = {
         "column1": product,
