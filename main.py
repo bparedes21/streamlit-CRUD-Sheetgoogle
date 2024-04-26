@@ -35,13 +35,16 @@ st.markdown("""
             display: none;
         }
     </style>
-""", unsafe_allow_html=True)
+""", unsafe_allow_html=True
+)
+
+
 # Define el encabezado
 with st.container():
     # Set title in the sidebar with reduced font size
     st.sidebar.title("Bievenido/a")
-    st.sidebar.title("Navegación")
-    st.sidebar.subheader("A través del menú de la izquierda")
+
+    st.sidebar.subheader("Navegación a través del menú de la izquierda")
     page_explanations = {
         "Borrar": "Eliminar datos de la hoja de cálculo.",
         "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
