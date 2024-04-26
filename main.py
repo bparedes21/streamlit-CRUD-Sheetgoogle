@@ -40,71 +40,60 @@ def update_data(id_value, product, price, category, discount):
             return {"status_code": response.status_code, "message": response.text}
     except requests.RequestException as e:
         return {"status_code": 500, "message": str(e)}
-
-def main_sr():
-
+def main_mr():
+    
     data = get_data()
-    st.title("📝 INSERTAR Datos de la tabla Productos en Google Sheets")
 
-    categories = ['Almacen', 'Mascotas', 'Bebidas y bodega']
+    st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 
-    # Definir los productos para cada categoría junto con sus emojis correspondientes
-    productos = {
-        'Almacen': [('🍝', 'Fideos'), ('🍚', 'Arroz'), ('🍅', 'Pure de Tomate')],
-        'Mascotas': [('🐶', 'Alimento para perro'), ('🐱', 'Alimento para gato'), ('🐰', 'Alimento para conejo')],
-        'Bebidas y bodega': [('🥤', 'Gaseosa'), ('💧', 'Agua'), ('🍷', 'Vino')]
-    }
-
-    st.subheader("Ingrese los datos:")
-    # Crear menú desplegable con las categorías
-    selected_category = st.selectbox("Selecciona una categoría:", categories)
-
-    productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
-    productos_sin_emojis = [producto[1] for producto in productos[selected_category]]
-
-    # Crear el selectbox para los productos
-    selected_productos = st.selectbox("Seleccione un producto:", productos_emojis)
-
-    # Obtener el producto sin emojis correspondiente al seleccionado
-    selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
-
-    descuento = ["0", "10", "20", "30"]
-    selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
-
-    precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
-    # Asegurarse de que el valor se trate como un flotante
-    precio = round(float(precio), 2)
-    precio_str = str(precio)
-
-    # Obtener emoji correspondiente a la categoría seleccionada
-    category_emoji = {
+    id_list = data['ID'].tolist() if data is not None else []
+    if id_list:
+        selected_id = st.selectbox("Selecciona un ID de la tabla Productos:", id_list)
+        
+        # Definir los productos para cada categoría junto con sus emojis correspondientes
+        productos = {
+            'Almacen': [('🏬', 'Fideos'), ('🏬', 'Arroz'), ('🏬', 'Pure de Tomate')],
+            'Mascotas': [('🐾', 'Alimento para perro'), ('🐾', 'Alimento para gato'), ('🐾', 'Alimento para conejo')],
+            'Bebidas y bodega': [('🍷', 'Gaseosa'), ('🍷', 'Agua'), ('🍷', 'Vino')]
+        }
+        category_emoji = {
         'Almacen': '🏬',
         'Mascotas': '🐾',
         'Bebidas y bodega': '🍷'
-    }
-    st.subheader("Datos:")
-    st.write("Producto:", selected_productos)
-    st.write("Precio:", precio_str)
-    st.write("Categoría:", category_emoji[selected_category], selected_category)
-    st.write("Descuento:", selected_descuento)
-    if st.button("insertar"):# Verificar tipos de datos
+        }
+        st.subheader("Ingrese los datos a modificar:")
+        selected_category = st.selectbox("Selecciona una categoría:", list(productos.keys()), format_func=lambda x: f"{category_emoji[x]} {x}")
+        productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
+        selected_product = st.selectbox("Seleccione un producto:", productos_emojis)
+        selected_discount = st.selectbox("Seleccione un descuento:", ["0", "10", "20", "30"])
+        precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
+        # Asegurarse de que el valor se trate como un flotante
+        precio = round(float(precio), 2)
+        precio_str = str(precio)
+        st.subheader("Datos:")
+        st.write("Producto:", selected_product)
+        st.write("Precio:", precio_str)
+        st.write("Categoría:", f"{category_emoji[selected_category]} {selected_category}")
+        st.write("Descuento:", selected_discount)
 
-        response = insert_data(selected_producto_sin_emojis, precio_str , selected_category , selected_descuento)
-        
-        if response is not None and 'status_code' in response and response['status_code'] == 200:
-            st.empty()
-            data = get_data()
-            st.success("Datos insertados exitosamente")
-        else:
-            st.error("Hubo un error al insertar los datos")
+        if st.button("Modificar"):
+            response = update_data(selected_id, selected_product, precio_str, selected_category, selected_discount)
+            if response["status_code"] == 200:
+                st.empty()
+                st.success("Datos modificados exitosamente")
+                data = get_data()  # Actualizar datos después de la modificación
+            else:
+                st.error(f"Hubo un error al modificar los datos: {response['message']}")
 
+    else:
+        st.warning("No se encontraron IDs para la categoría seleccionada.")
 
-    # Mostrar los datos en Streamlit
     if data is not None and not data.empty:
         st.subheader("Tabla Productos en Google Sheets")
         st.write(data)
     else:
         st.warning("No se encontraron datos.")
+
 
 def insert_data(product, price, category, discount):
     url = "https://python-fastapi-iamgod.koyeb.app/insert"
