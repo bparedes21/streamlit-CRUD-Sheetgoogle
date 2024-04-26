@@ -6,7 +6,7 @@ def main():
 
     # Botón para cargar la página modificar.py
     if st.button("Ir a la página 'Modificar'"):
-        load_page("modificar.py")
+        load_page("pages/modificar.py")
 
 def load_page(page_name):
     with open(page_name, "r") as file:
