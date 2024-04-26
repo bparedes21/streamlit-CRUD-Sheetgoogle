@@ -43,7 +43,7 @@ def main():
             st.sidebar.title("👋 ¡Bienvenido/a!")
 
             st.sidebar.subheader("Navegue a través del menú:")
-        page_explanations = {
+            page_explanations = {
                 "Borrar": "Eliminar datos de la hoja de cálculo.",
                 "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
                 "Modificar": "Modificar datos existentes en la hoja de cálculo."
