@@ -24,7 +24,7 @@ if len(id_list)!=0:
         selected_productos = st.selectbox("Seleccione un producto:", productos_Mascotas)
     elif selected_category == 'Bebidas y bodega':
         selected_productos = st.selectbox("Seleccione un producto:", productos_Bebidas_y_bodega)
-    descuento = ['0','10','20','30']
+    descuento = ["0","10","20","30"]
     selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
     precio = st.text_input("Ingresar precio:")
 
