@@ -119,7 +119,6 @@ def main_sr():
     data = get_data()
     st.title("📝 INSERTAR Datos de la tabla Productos en Google Sheets")
 
-    categories = ['Almacen', 'Mascotas', 'Bebidas y bodega']
     category_emoji = {
         'Almacen': '🏬',
         'Mascotas': '🐾',
@@ -156,7 +155,7 @@ def main_sr():
 
     if st.button("Insertar"):
         response = insert_data(selected_producto_sin_emojis, precio_str, selected_category, selected_descuento)
-        if response is not None and response['status_code'] == 200:
+        if response is not None and response.status_code == 200:
             st.empty()
             data = get_data()
             st.success("Datos insertados exitosamente")
