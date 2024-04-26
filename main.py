@@ -27,6 +27,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
 st.title("Bienvenido")
 page_explanations = {
     "Borrar": "Eliminar datos de la hoja de cálculo.",
@@ -37,4 +38,4 @@ page_explanations = {
 for page, explanation in page_explanations.items():
     st.write(f"{page}: {explanation}")
 data = get_data()
-st.write(data
+st.write(data)
