@@ -1,8 +1,7 @@
 import requests
 import streamlit as st
 import pandas as pd
-from funciones_crud import get_data, update_data
-
+from .funciones_crud import get_data, update_data
 # Obtener los datos de la API
 data = get_data()
 st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")

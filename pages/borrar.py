@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 import pandas as pd
-from funciones_crud import get_data, delete_row
+from .funciones_crud import get_data, delete_row
 
 # Obtener los datos de la API
 data = get_data()
