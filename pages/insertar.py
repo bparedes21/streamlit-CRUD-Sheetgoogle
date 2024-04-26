@@ -49,7 +49,15 @@ selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
 precio = st.text_input("Ingresar precio:")
 
-st.write("Precio ingresado:", selected_category,selected_productos, precio, selected_descuento)
+
+if not precio.isdigit():
+    st.error("El precio debe ser un número.")
+
+
+st.write("Producto:", selected_productos)
+st.write("Precio:", precio)
+st.write("Categoría:", selected_category)
+st.write("Descuento:", selected_descuento)
 
 if st.button("insertar"):# Verificar tipos de datos
 
