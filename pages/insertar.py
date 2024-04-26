@@ -24,7 +24,7 @@ def insert_data(product, price, category, discount):
         # Log the error
         print(f"Error inserting data: {e}")
         return None
-        
+
 # Obtener los datos de la API
 data = get_data()
 
@@ -49,11 +49,11 @@ selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
 precio = st.text_input("Ingresar precio:")
 
-st.write("Precio ingresado:", selected_category,selected_productos, precio, descuento)
+st.write("Precio ingresado:", selected_category,selected_productos, precio, selected_descuento)
 
 if st.button("insertar"):# Verificar tipos de datos
 
-    response = insert_data(selected_productos, precio , selected_category , descuento)
+    response = insert_data(selected_productos, precio , selected_category , selected_descuento)
     
     if response[1] == 200:
         st.empty()
