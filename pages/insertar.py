@@ -50,13 +50,17 @@ st.write("Precio ingresado:", selected_category,selected_productos,precio_str,se
 if st.button("insertar"):# Verificar tipos de datos
 
     response = insert_data( selected_category, selected_productos, precio_str, selected_descuento_str)
-    if response.status_code == 200:
-        
-        st.empty()
-        data = get_data()
-        st.success("Datos insertados exitosamente")
+
+
+    if response is not None and isinstance(response, requests.Response):
+        if response.status_code == 200:
+            st.empty()
+            data = get_data()
+            st.success("Datos insertados exitosamente")
+        else:
+            st.error(f"Hubo un error al insertar los datos: {response.text}")
     else:
-        st.error(f"Hubo un error al isertar los datos")
+        st.error("Error al conectarse con la API")
 
 
 # Mostrar los datos en Streamlit
