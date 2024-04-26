@@ -52,7 +52,9 @@ if len(id_list)!=0:
         selected_productos = st.selectbox("Seleccione un producto:", productos_Bebidas_y_bodega)
     descuento = ["0","10","20","30"]
     selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
-    precio = st.number_input('Ingrese un precio:')
+
+    precio = st.number_input ('Ingrese un precio:', min_value=0, format="%d")
+
     precio_str=str(precio)
     selected_id_list_str=str(selected_id_list)
     
