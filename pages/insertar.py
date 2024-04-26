@@ -1,8 +1,26 @@
 import requests
 import streamlit as st
 import pandas as pd
-from pages.funciones_crud import get_data, insert_data
+from pages.funciones_crud import get_data
 
+def insert_data(product, price, category, discount):
+    url = "https://python-fastapi-iamgod.koyeb.app/insert"
+    payload = {
+        "column1": product,
+        "column2": price,
+        "column3": category,
+        "column4": discount
+    }
+    
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()  # Verificar si hay errores en la respuesta
+        data = response.json()
+        # Resto del código para procesar la respuesta
+        return data
+    except requests.RequestException as e:
+        
+        return None
 # Obtener los datos de la API
 data = get_data()
 
