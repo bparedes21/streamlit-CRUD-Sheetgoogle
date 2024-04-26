@@ -1,4 +1,6 @@
+import requests
 import streamlit as st
+import pandas as pd
 from pages.funciones_crud import get_data, insert_data
 
 # Obtener los datos de la API
@@ -26,11 +28,6 @@ selected_descuento_str=str(selected_descuento)
 precio = st.text_input("Ingresar precio:")
 precio_str=str(precio)
 st.write("Precio ingresado:", selected_category,selected_productos,precio_str,selected_descuento_str)
-st.write("Tipo de selected_category:", type(selected_category))
-st.write("Tipo de selected_productos:", type(selected_productos))
-st.write("Tipo de precio:", type(precio_str))
-st.write("Tipo de selected_descuento:", type(selected_descuento_str))
-
 
 if st.button("insertar"):# Verificar tipos de datos
 
@@ -41,7 +38,7 @@ if st.button("insertar"):# Verificar tipos de datos
         data = get_data()
         st.success("Datos insertados exitosamente")
     else:
-        st.error(f"Hubo un error al modificar los datos")
+        st.error(f"Hubo un error al isertar los datos")
 
 
 # Mostrar los datos en Streamlit

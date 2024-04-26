@@ -1,5 +1,5 @@
-import streamlit as st
 import requests
+import streamlit as st
 import pandas as pd
 # Función para obtener los datos de la API
 def get_data():
