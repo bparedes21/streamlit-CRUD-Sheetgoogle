@@ -47,7 +47,7 @@ elif selected_category == 'Bebidas y bodega':
 descuento = ["0","10","20","30"]
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
-precio = st.number_input ('Ingrese un precio:', min_value=0, format="%d")
+precio = st.number_input ('Ingrese un precio:', min_value=0, format="%.2f")
 precio_str=str(precio)
 st.write("Producto:", selected_productos)
 st.write("Precio:", precio_str)
