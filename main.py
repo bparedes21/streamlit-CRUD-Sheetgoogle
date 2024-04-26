@@ -54,7 +54,7 @@ def main():
                 st.write(f"**{page}**: {explanation}")
             data = get_data()
             st.write(data)
-    if page == "Modificar":
+    elif page == "Modificar":
         md.main()
     elif page == "Borrar":
         br.main()
