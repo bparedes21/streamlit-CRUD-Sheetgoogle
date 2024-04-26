@@ -28,15 +28,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Oculta el menú flotante
+# Inject CSS to hide the floating menu
 st.markdown("""
     <style>
-        .streamlit-embed-wrapper {
-            display: none;
+        .sidebar-container {
+            display: none !important;
         }
     </style>
-""", unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
 
 # Define el encabezado
