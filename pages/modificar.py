@@ -1,8 +1,28 @@
-import requests
 import streamlit as st
+import requests
 import pandas as pd
 from pages.funciones_crud import get_data
 
+
+def get_data():
+        # URL de tu API de FastAPI
+    api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
+
+    try:
+        response = requests.get(f"{api_url}/read")
+        data = response.json()
+
+        if response.status_code == 200:
+            data = data[0]
+            list_data = data['data']
+            df = pd.DataFrame(list_data)
+            return df
+        else:
+            st.error(data)
+            return None
+    except requests.RequestException as e:
+        st.error(f"Error al conectar con la API: {e}")
+        return None
 
 def update_data(id_value, product, price, category, discount):
     # URL of your FastAPI API
