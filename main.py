@@ -51,10 +51,11 @@ def main_mr():
         selected_id = st.selectbox("Selecciona un ID de la tabla Productos:", id_list)
         
         # Definir los productos para cada categoría junto con sus emojis correspondientes
+    # Definir los productos para cada categoría junto con sus emojis correspondientes
         productos = {
-            'Almacen': [('🏬', 'Fideos'), ('🏬', 'Arroz'), ('🏬', 'Pure de Tomate')],
-            'Mascotas': [('🐾', 'Alimento para perro'), ('🐾', 'Alimento para gato'), ('🐾', 'Alimento para conejo')],
-            'Bebidas y bodega': [('🍷', 'Gaseosa'), ('🍷', 'Agua'), ('🍷', 'Vino')]
+        'Almacen': [('🍝', 'Fideos'), ('🍚', 'Arroz'), ('🍅', 'Pure de Tomate')],
+        'Mascotas': [('🐶', 'Alimento para perro'), ('🐱', 'Alimento para gato'), ('🐰', 'Alimento para conejo')],
+        'Bebidas y bodega': [('🥤', 'Gaseosa'), ('💧', 'Agua'), ('🍷', 'Vino')]
         }
         category_emoji = {
         'Almacen': '🏬',
