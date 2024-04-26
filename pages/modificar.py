@@ -30,7 +30,7 @@ if len(id_list)!=0:
     precio = st.text_input("Ingresar precio:")
 
     if st.button("Modificar"):
-        response = update_data(selected_id_list, selected_category, selected_productos, precio, selected_descuento)
+        response = update_data(selected_id_list,selected_productos, precio , selected_category , descuento)
         if response.status_code == 200:
             
             st.empty()

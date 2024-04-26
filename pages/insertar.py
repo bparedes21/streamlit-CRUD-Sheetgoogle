@@ -50,7 +50,7 @@ st.write("Precio ingresado:", selected_category,selected_productos,precio_str,se
 
 if st.button("insertar"):# Verificar tipos de datos
 
-    response = insert_data( selected_category, selected_productos, precio_str, selected_descuento_str)
+    response = insert_data(selected_productos, precio_str, selected_category , selected_descuento_str)
     
     if response[1] == 200:
         st.empty()
