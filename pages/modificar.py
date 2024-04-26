@@ -7,7 +7,7 @@ from pages.funciones_crud import get_data
 def update_data(id_value, product, price, category, discount):
     # URL de tu API de FastAPI
     api_url = "https://python-fastapi-iamgod.koyeb.app/update/"  # Actualiza con la URL de tu API
-    url = api_url + {id_value}
+    url = api_url + id_value
     payload = {
         "column1": product,
         "column2": price,
@@ -44,7 +44,7 @@ if len(id_list)!=0:
     precio = st.text_input("Ingresar precio:")
 
     if st.button("Modificar"):
-        response = update_data(selected_id_list,selected_productos, precio , selected_category , descuento)
+        response = update_data(str(selected_id_list),selected_productos, precio , selected_category , descuento)
         if response.status_code == 200:
             
             st.empty()
