@@ -28,21 +28,19 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.markdown(
-    """
+# Oculta el menú flotante
+st.markdown("""
     <style>
-    .sidebar .sidebar-content .sidebar-section h2 {
-        font-size: 16px;
-    }
+        .streamlit-embed-wrapper {
+            display: none;
+        }
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 # Define el encabezado
 with st.container():
     # Set title in the sidebar with reduced font size
+    st.sidebar.title("Bievenido/a")
     st.sidebar.title("Navegación")
-    st.sidebar.title("Bievenido/a Navege")
     st.sidebar.subheader("A través del menú de la izquierda")
     page_explanations = {
         "Borrar": "Eliminar datos de la hoja de cálculo.",
