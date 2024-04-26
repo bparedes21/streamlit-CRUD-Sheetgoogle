@@ -25,6 +25,7 @@ def update_data(id_value, product, price, category, discount):
         return None
 data=pd.DataFrame()
 data = get_data()
+
 st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 # Obtener la lista de valores de la columna "ID"
 id_list = data['ID'].tolist()
@@ -49,6 +50,7 @@ if len(id_list)!=0:
     selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
     precio = st.text_input("Ingresar precio:")
     selected_id_list_str=str(selected_id_list)
+    st.write("Precio ingresado:",selected_id_list_str, selected_category,selected_productos, precio, descuento)
     if st.button("Modificar"):
         response = update_data(selected_id_list_str,selected_productos, precio , selected_category , descuento)
         if 'status_code' in response and response['status_code'] == 200:
