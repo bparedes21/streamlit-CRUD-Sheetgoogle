@@ -25,7 +25,7 @@ selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 selected_descuento_str=str(selected_descuento)
 precio = st.text_input("Ingresar precio:")
 precio_str=str(precio)
-st.write("Precio ingresado:", selected_category,selected_productos,precio_str,selected_descuento_str)
+st.write("Precio ingresado:", type(selected_category),type(selected_productos),type(precio_str),type(selected_descuento_str))
 if st.button("insertar"):
     response = insert_data( selected_category, selected_productos, precio_str, selected_descuento_str)
     if response.status_code == 200:
