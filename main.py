@@ -39,7 +39,8 @@ with st.container():
         "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
         "Modificar": "Modificar datos existentes en la hoja de cálculo."
     }
-    
+    st.write("# Bienvenidos a nuestro proyecto de gestión de datos")
+    st.write("Este proyecto tiene como objetivo facilitar la gestión de datos de una hoja de cálculo a través de una interfaz amigable y fácil de usar.")
     for page, explanation in page_explanations.items():
         st.write(f"{page}: {explanation}")
     data = get_data()
