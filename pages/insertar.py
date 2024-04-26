@@ -20,10 +20,10 @@ elif selected_category == 'Mascotas':
     selected_productos = st.selectbox("Seleccione un producto:", productos_Mascotas)
 elif selected_category == 'Bebidas y bodega':
     selected_productos = st.selectbox("Seleccione un producto:", productos_Bebidas_y_bodega)
-descuento = ['0','10','20','30']
+descuento = ["0","10","20","30"]
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 precio = st.text_input("Ingresar precio:")
-
+st.write("Precio ingresado:", selected_category,selected_productos,precio,selected_descuento)
 if st.button("insertar"):
     response = insert_data( selected_category, selected_productos, precio, selected_descuento)
     if response.status_code == 200:
