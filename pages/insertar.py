@@ -80,14 +80,12 @@ category_emoji = {
 }
 
 st.write("Producto:", selected_productos)
-st.write("Producto selected_productos_sin_emoji:", selected_productos_sin_emoji)
-
 st.write("Precio:", precio_str)
 st.write("Categoría:", category_emoji[selected_category], selected_category)
 st.write("Descuento:", selected_descuento)
 if st.button("insertar"):# Verificar tipos de datos
 
-    response = insert_data(selected_productos, precio_str , selected_category , selected_descuento)
+    response = insert_data(selected_productos_sin_emoji, precio_str , selected_category , selected_descuento)
     
     if response[1] == 200:
         st.empty()
