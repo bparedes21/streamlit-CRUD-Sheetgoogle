@@ -38,12 +38,12 @@ def update_data(id_value, category, product, price, discount):
 
 # Función para realizar la solicitud POST al endpoint de inserción
 def insert_data(product, price, category, discount):
-    url = "https://python-fastapi-iamgod.koyeb.app/insert/"
+    url = "https://python-fastapi-iamgod.koyeb.app/insert"
     payload = {
         "column1": product,
-        "column2": str(price),
+        "column2": price,
         "column3": category,
-        "column4": str(discount)
+        "column4": discount
     }
     response = requests.post(url, json=payload)
     return response
