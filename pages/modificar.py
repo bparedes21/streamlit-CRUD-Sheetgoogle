@@ -23,7 +23,7 @@ def update_data(id_value, product, price, category, discount):
         return data
     except requests.RequestException as e:
         return None
-    
+data=pd.DataFrame()
 data = get_data()
 st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 # Obtener la lista de valores de la columna "ID"
@@ -51,7 +51,8 @@ if len(id_list)!=0:
     selected_id_list_str=str(selected_id_list)
     if st.button("Modificar"):
         response = update_data(selected_id_list_str,selected_productos, precio , selected_category , descuento)
-        if response['status_code'] == 200:
+        if 'status_code' in response and response['status_code'] == 200:
+
             st.empty()
             data = get_data()
             st.success("Datos modificados exitosamente")
