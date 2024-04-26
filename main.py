@@ -28,28 +28,18 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Inject CSS to hide the floating menu
-st.markdown("""
-    <style>
-        .sidebar-container {
-            display: none !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-
 # Define el encabezado
 with st.container():
     # Set title in the sidebar with reduced font size
     st.sidebar.title("Bievenido/a")
 
-    st.sidebar.subheader("Navegación a través del menú de la izquierda")
+    st.sidebar.subheader("Navege a través del menú:")
     page_explanations = {
         "Borrar": "Eliminar datos de la hoja de cálculo.",
         "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
         "Modificar": "Modificar datos existentes en la hoja de cálculo."
     }
-
+    
     for page, explanation in page_explanations.items():
         st.write(f"{page}: {explanation}")
     data = get_data()
