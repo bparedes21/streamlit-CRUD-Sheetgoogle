@@ -4,6 +4,29 @@ import pandas as pd
 from pages.funciones_crud import get_data, update_data
 
 
+def update_data(id_value, product, price, category, discount):
+    # URL of your FastAPI API
+    api_url = "https://python-fastapi-iamgod.koyeb.app/update/"  # Update with your API URL
+    url = api_url + id_value
+    payload = {
+        "column1": product,
+        "column2": price,
+        "column3": category,
+        "column4": discount
+    }
+    
+    try:
+        response = requests.put(url, json=payload)
+        response.raise_for_status()  # Check for errors in the response
+        data = response.json()
+        return data
+
+    except requests.RequestException as e:
+        # Log the error
+        print(f"Error updating data: {e}")
+        return None
+
+
 data=pd.DataFrame()
 data = get_data()
 
