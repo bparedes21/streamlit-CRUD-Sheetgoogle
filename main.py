@@ -223,10 +223,10 @@ def main():
 
     page = st.sidebar.selectbox(
         "Seleccione una página:",
-        ("","Modificar", "Borrar", "Insertar")
+        ("Inicio","Modificar", "Borrar", "Insertar")
     )
 
-    if page == "":
+    if page == "Inicio":
         with st.container():
             # Título en la barra lateral con tamaño de fuente reducido
             st.sidebar.title("👋 ¡Bienvenido/a!")
@@ -236,8 +236,10 @@ def main():
                 "Borrar": "Eliminar datos de la hoja de cálculo.",
                 "Insertar": "Insertar nuevos datos en la hoja de cálculo.",
                 "Modificar": "Modificar datos existentes en la hoja de cálculo."
+                
             }
             st.write("# Bienvenidos a nuestro proyecto de gestión de datos 📊")
+            st.markdown("Puedes encontrar la hoja de GOOGLE en  [Google sheets](https://docs.google.com/spreadsheets/d/1wF_mgiNfDMFZp5M94imuFpXHdND9bvKOD41IjZNNqdo/edit?usp=sharing)")
             st.write("Este proyecto tiene como objetivo facilitar la gestión de datos de una hoja de cálculo a través de una interfaz amigable y fácil de usar.")
             for page, explanation in page_explanations.items():
                 st.write(f"**{page}**: {explanation}")
