@@ -41,9 +41,9 @@ def insert_data(product, price, category, discount):
     url = "https://python-fastapi-iamgod.koyeb.app/insert/"
     payload = {
         "column1": product,
-        "column2": price,
+        "column2": str(price),
         "column3": category,
-        "column4": discount
+        "column4": str(discount)
     }
     response = requests.post(url, json=payload)
     return response
