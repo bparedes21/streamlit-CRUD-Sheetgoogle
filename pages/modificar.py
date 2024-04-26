@@ -52,17 +52,18 @@ if len(id_list)!=0:
         selected_productos = st.selectbox("Seleccione un producto:", productos_Bebidas_y_bodega)
     descuento = ["0","10","20","30"]
     selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
-    precio = st.text_input("Ingresar precio:")
+    precio = st.number_input('Ingrese un precio:')
+    precio_str=str(precio)
     selected_id_list_str=str(selected_id_list)
     
     st.write("Id:", selected_id_list_str)
     st.write("Producto:", selected_productos)
-    st.write("Precio:", precio)
+    st.write("Precio:", precio_str)
     st.write("Categoría:", selected_category)
     st.write("Descuento:", selected_descuento)
     
     if st.button("Modificar"):
-        response = update_data(selected_id_list_str,selected_productos, precio , selected_category , selected_descuento)
+        response = update_data(selected_id_list_str,selected_productos, precio_str , selected_category , selected_descuento)
         if 'status_code' in response and response['status_code'] == 200:
 
             st.empty()

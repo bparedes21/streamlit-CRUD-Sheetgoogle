@@ -48,15 +48,15 @@ descuento = ["0","10","20","30"]
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
 precio = st.number_input('Ingrese un precio:')
-
+precio_str=str(precio)
 st.write("Producto:", selected_productos)
-st.write("Precio:", precio)
+st.write("Precio:", precio_str)
 st.write("Categoría:", selected_category)
 st.write("Descuento:", selected_descuento)
 
 if st.button("insertar"):# Verificar tipos de datos
 
-    response = insert_data(selected_productos, precio , selected_category , selected_descuento)
+    response = insert_data(selected_productos, precio_str , selected_category , selected_descuento)
     
     if response[1] == 200:
         st.empty()
