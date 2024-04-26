@@ -62,6 +62,8 @@ selected_category = st.selectbox("Selecciona una categoría:", categories)
 # Obtener los productos según la categoría seleccionada
 selected_productos = st.selectbox("Seleccione un producto:", [emoji + " " + producto for emoji, producto in productos[selected_category]])
 
+selected_productos_sin_emoji = st.selectbox("Seleccione un producto:", [producto[1] for producto in productos[selected_category]])
+
 descuento = ["0", "10", "20", "30"]
 selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
@@ -78,6 +80,8 @@ category_emoji = {
 }
 
 st.write("Producto:", selected_productos)
+st.write("Producto selected_productos_sin_emoji:", selected_productos_sin_emoji)
+
 st.write("Precio:", precio_str)
 st.write("Categoría:", category_emoji[selected_category], selected_category)
 st.write("Descuento:", selected_descuento)
