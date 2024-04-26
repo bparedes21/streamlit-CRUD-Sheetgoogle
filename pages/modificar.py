@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
-from pages.funciones_crud import get_data
+
 
 
 def get_data():
