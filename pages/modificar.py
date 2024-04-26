@@ -1,44 +1,11 @@
 import requests
 import streamlit as st
 import pandas as pd
-
-# URL de tu API de FastAPI
-api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
-
-# Función para obtener los datos de la API
-def get_data():
-    try:
-        response = requests.get(f"{api_url}/read")
-        data = response.json()
-
-        if response.status_code == 200:
-            data = data[0]
-            list_data = data['data']
-            df = pd.DataFrame(list_data)
-            return df
-        else:
-            st.error(data)
-            return None
-    except requests.RequestException as e:
-        st.error(f"Error al conectar con la API: {e}")
-        return None
-
-
-# Función para realizar la solicitud POST al endpoint de actualización
-def update_data(id_value, category, product, price, discount):
-    url = "https://python-fastapi-iamgod.koyeb.app/update/" + id_value
-    payload = {
-        "column1": category,
-        "column2": product,
-        "column3": price,
-        "column4": discount
-    }
-    response = requests.put(url, json=payload)
-    return response
+from funciones_crud import get_data, update_data
 
 # Obtener los datos de la API
 data = get_data()
-
+st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 # Obtener la lista de valores de la columna "ID"
 id_list = data['ID'].tolist()
 if len(id_list)!=0:
@@ -81,7 +48,8 @@ else:
 
 # Mostrar los datos en Streamlit
 if data is not None and not data.empty:
-    st.title("Datos de la API CRUD Google Sheets")
+
+    st.title("Tabla Productos Google Sheets")
     st.write(data)
 else:
     st.warning("No se encontraron datos.")
