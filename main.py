@@ -16,11 +16,12 @@ def get_data():
             df = pd.DataFrame(list_data)
             return df
         else:
-            st.error(data)
-            return None
+            error_message = f"Error al obtener datos: {response.status_code}"
+            return None, error_message
     except requests.RequestException as e:
-        st.error(f"Error al conectar con la API: {e}")
-        return None
+        error_message = f"Error al conectar con la API: {e}"
+        return None, error_message
+    
 # Función para modificar datos en la API
 def update_data(id_value, product, price, category, discount):
     api_url = "https://python-fastapi-iamgod.koyeb.app/update/"
