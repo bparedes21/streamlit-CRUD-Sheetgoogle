@@ -197,10 +197,10 @@ def main_sr():
             st.error(f"Hubo un error al insertar los datos: {response.text}")
 
         st.subheader("Tabla Productos en Google Sheets")
-        st.write(data)
+        
     else:
         st.warning("No se encontraron datos.")
-
+    st.write(data)
 
 def delete_data(id):
     # URL de la API para borrar datos
