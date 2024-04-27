@@ -216,8 +216,9 @@ def main_br():
     data = get_data()
     st.title("BORRAR Datos de la tabla Productos en Google Sheets")
     # Obtener la lista de valores de la columna "ID"
-    id_list = data['ID'].tolist()
-    if len(id_list)!=0:
+    
+    if data is not None and isinstance(data, pd.DataFrame):
+        id_list = data['ID'].tolist()
         selected_id_list= st.selectbox("Selecciona un ID de la tabla Productos:", id_list)  
         # Botón para enviar el ID a eliminar
         if st.button("Borrar"):
