@@ -57,67 +57,67 @@ def main_mr():
 
     st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 
+    if data != (None, 'No hay datos en la tabla'):
+        id_list = data['ID'].tolist()
+        if len(id_list)!=0:
+            selected_id = st.selectbox("Selecciona un ID de la tabla Productos:", id_list)
+            
+            
+            categories = ['Almacen', 'Mascotas', 'Bebidas y bodega']
 
-    id_list = data['ID'].tolist()
-    if len(id_list)!=0:
-        selected_id = st.selectbox("Selecciona un ID de la tabla Productos:", id_list)
-        
-        
-        categories = ['Almacen', 'Mascotas', 'Bebidas y bodega']
+            # Definir los productos para cada categoría junto con sus emojis correspondientes
+            productos = {
+                'Almacen': [('🍝', 'Fideos'), ('🍚', 'Arroz'), ('🍅', 'Pure de Tomate')],
+                'Mascotas': [('🐶', 'Alimento para perro'), ('🐱', 'Alimento para gato'), ('🐰', 'Alimento para conejo')],
+                'Bebidas y bodega': [('🥤', 'Gaseosa'), ('💧', 'Agua'), ('🍷', 'Vino')]
+            }
 
-        # Definir los productos para cada categoría junto con sus emojis correspondientes
-        productos = {
-            'Almacen': [('🍝', 'Fideos'), ('🍚', 'Arroz'), ('🍅', 'Pure de Tomate')],
-            'Mascotas': [('🐶', 'Alimento para perro'), ('🐱', 'Alimento para gato'), ('🐰', 'Alimento para conejo')],
-            'Bebidas y bodega': [('🥤', 'Gaseosa'), ('💧', 'Agua'), ('🍷', 'Vino')]
-        }
+            st.subheader("Ingrese los datos:")
+            # Crear menú desplegable con las categorías
+            selected_category = st.selectbox("Selecciona una categoría:", categories)
 
-        st.subheader("Ingrese los datos:")
-        # Crear menú desplegable con las categorías
-        selected_category = st.selectbox("Selecciona una categoría:", categories)
+            productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
+            productos_sin_emojis = [producto[1] for producto in productos[selected_category]]
 
-        productos_emojis = [producto[0] + " " + producto[1] for producto in productos[selected_category]]
-        productos_sin_emojis = [producto[1] for producto in productos[selected_category]]
+            # Crear el selectbox para los productos
+            selected_productos = st.selectbox("Seleccione un producto:", productos_emojis)
 
-        # Crear el selectbox para los productos
-        selected_productos = st.selectbox("Seleccione un producto:", productos_emojis)
+            # Obtener el producto sin emojis correspondiente al seleccionado
+            selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
 
-        # Obtener el producto sin emojis correspondiente al seleccionado
-        selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
+            descuento = ["0", "10", "20", "30"]
+            selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
 
-        descuento = ["0", "10", "20", "30"]
-        selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
+            precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
+            # Asegurarse de que el valor se trate como un flotante
+            precio = round(float(precio), 2)
+            precio_str = str(precio)
 
-        precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
-        # Asegurarse de que el valor se trate como un flotante
-        precio = round(float(precio), 2)
-        precio_str = str(precio)
+            # Obtener emoji correspondiente a la categoría seleccionada
+            category_emoji = {
+                'Almacen': '🏬',
+                'Mascotas': '🐾',
+                'Bebidas y bodega': '🍷'
+            }
+            st.subheader("Datos:")
+            st.write("Producto:", selected_productos)
+            st.write("Precio:", precio_str)
+            st.write("Categoría:", category_emoji[selected_category], selected_category)
+            st.write("Descuento:", selected_descuento)
 
-        # Obtener emoji correspondiente a la categoría seleccionada
-        category_emoji = {
-            'Almacen': '🏬',
-            'Mascotas': '🐾',
-            'Bebidas y bodega': '🍷'
-        }
-        st.subheader("Datos:")
-        st.write("Producto:", selected_productos)
-        st.write("Precio:", precio_str)
-        st.write("Categoría:", category_emoji[selected_category], selected_category)
-        st.write("Descuento:", selected_descuento)
+            if st.button("Modificar"):
+                response = update_data(selected_id, selected_producto_sin_emojis, precio_str, selected_category, selected_descuento)
+                if response["status_code"] == 200:
+                    st.empty()
+                    st.success("Datos modificados exitosamente")
+                    data = get_data()  # Actualizar datos después de la modificación
+                else:
+                    st.error(f"Hubo un error al modificar los datos: {response['message']}")
 
-        if st.button("Modificar"):
-            response = update_data(selected_id, selected_producto_sin_emojis, precio_str, selected_category, selected_descuento)
-            if response["status_code"] == 200:
-                st.empty()
-                st.success("Datos modificados exitosamente")
-                data = get_data()  # Actualizar datos después de la modificación
-            else:
-                st.error(f"Hubo un error al modificar los datos: {response['message']}")
+        else:
+            st.warning("No se encontraron IDs para la categoría seleccionada.")
 
-    else:
-        st.warning("No se encontraron IDs para la categoría seleccionada.")
-
-    st.write(data)
+        st.write(data)
 
 
 
