@@ -57,7 +57,7 @@ def main_mr():
 
     st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 
-    if data != (None, 'No hay datos en la tabla'):
+    if not isinstance(data, pd.DataFrame):
         id_list = data['ID'].tolist()
         if len(id_list)!=0:
             selected_id = st.selectbox("Selecciona un ID de la tabla Productos:", id_list)
