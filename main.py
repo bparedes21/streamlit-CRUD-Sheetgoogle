@@ -197,9 +197,6 @@ def main_sr():
         else:
             st.error(f"Hubo un error al insertar los datos: {response.text}")
 
-
-    # Mostrar los datos en Streamlit
-    if data is not None and not data.empty:
         st.subheader("Tabla Productos en Google Sheets")
         st.write(data)
     else:
