@@ -85,8 +85,8 @@ def main_mr():
             # Obtener el producto sin emojis correspondiente al seleccionado
             selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
 
-            descuento = ["0", "10", "20", "30"]
-            selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
+            stock = ["0", "10", "20", "30"]
+            selected_stock = st.selectbox("Seleccione un stock:", stock)
 
             precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
             # Asegurarse de que el valor se trate como un flotante
@@ -103,10 +103,10 @@ def main_mr():
             st.write("Producto:", selected_productos)
             st.write("Precio:", precio_str)
             st.write("Categoría:", category_emoji[selected_category], selected_category)
-            st.write("Descuento:", selected_descuento)
+            st.write("stock:", selected_stock)
 
             if st.button("Modificar"):
-                response = update_data(selected_id, selected_producto_sin_emojis, precio_str, selected_category, selected_descuento)
+                response = update_data(selected_id, selected_producto_sin_emojis, precio_str, selected_category, selected_stock)
                 if response["status_code"] == 200:
                     st.empty()
                     st.success("Datos modificados exitosamente")
@@ -166,10 +166,9 @@ def main_sr():
 
     # Obtener el producto sin emojis correspondiente al seleccionado
     selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
-
-    descuento = ["0", "10", "20", "30"]
-    selected_descuento = st.selectbox("Seleccione un descuento:", descuento)
-
+    
+    stock = st.number_input('Ingrese un stock:', min_value=0, step=1)
+    selected_stock=str(stock)
     precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
     # Asegurarse de que el valor se trate como un flotante
     precio = round(float(precio), 2)
@@ -185,10 +184,10 @@ def main_sr():
     st.write("Producto:", selected_productos)
     st.write("Precio:", precio_str)
     st.write("Categoría:", category_emoji[selected_category], selected_category)
-    st.write("Descuento:", selected_descuento)
+    st.write("stock:", selected_stock)
     if st.button("insertar"):# Verificar tipos de datos
 
-        response = insert_data(selected_producto_sin_emojis, precio_str , selected_category , selected_descuento)
+        response = insert_data(selected_producto_sin_emojis, precio_str , selected_category , selected_stock)
         
         if response[1] == 200:
             st.empty()
