@@ -16,7 +16,7 @@ def get_data():
                 list_data = data.get('data')
                 if list_data:
                     df = pd.DataFrame(list_data)
-                    return df, None
+                    return df
                 else:
                     error_message = "No hay datos en la tabla"
                     return None, error_message
@@ -166,7 +166,7 @@ def main_sr():
 
     # Obtener el producto sin emojis correspondiente al seleccionado
     selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
-    
+
     stock = st.number_input('Ingrese un stock:', min_value=0, step=1)
     selected_stock=str(stock)
     precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
