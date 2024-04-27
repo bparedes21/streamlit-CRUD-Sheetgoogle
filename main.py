@@ -13,19 +13,23 @@ def get_data():
         if response.status_code == 200:
             data = data[0]
             if data is not None:
-
-                list_data = data['data']
-                df = pd.DataFrame(list_data)
-                
-                return df
+                list_data = data.get('data')
+                if list_data:
+                    df = pd.DataFrame(list_data)
+                    return df, None
+                else:
+                    error_message = "No hay datos en la tabla"
+                    return None, error_message
             else:
-                error_message = f"No hay datos en la tabla"   
+                error_message = "La respuesta de la API está vacía"
+                return None, error_message
         else:
             error_message = f"Error al obtener datos: {response.status_code}"
             return None, error_message
     except requests.RequestException as e:
         error_message = f"Error al conectar con la API: {e}"
         return None, error_message
+
     
 # Función para modificar datos en la API
 def update_data(id_value, product, price, category, discount):
