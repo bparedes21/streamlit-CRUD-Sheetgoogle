@@ -236,12 +236,9 @@ def main_br():
 
         st.warning("No se encontraron IDs para la categoría seleccionada.")
 
-    # Mostrar los datos en Streamlit
-    if data is not None and not data.empty:
-        st.subheader("Tabla Productos en Google Sheets")
-        st.write(data)
-    else:
-        st.warning("No se encontraron datos.")
+   
+    st.write(data)
+  
         
 
 def main():
