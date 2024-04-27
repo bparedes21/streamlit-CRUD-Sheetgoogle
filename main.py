@@ -247,17 +247,10 @@ def main():
     page_icon="📊",
     layout="wide")
 
-
+    st.title("Hoja de Cálculo")
+    st.write(":eyeglasses: proyecto de gestión de datos 📊")
     with st.sidebar:
        
-        st.set_page_config(
-        page_title="Gestion de Hoja de Cálculo",
-        page_icon="📊",
-        layout="wide")
-        st.title("Hoja de Cálculo")
-        st.write(":eyeglasses: proyecto de gestión de datos 📊")
-
-            
         st.sidebar.title("👋 ¡Bienvenido/a!")
 
         st.sidebar.subheader("Navegue a través del menú:")
