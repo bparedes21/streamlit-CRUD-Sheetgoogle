@@ -117,7 +117,7 @@ def main_mr():
         else:
             st.warning("No se encontraron IDs para la categoría seleccionada.")
 
-        st.write(data)
+    st.write(data)
 
 
 
