@@ -52,8 +52,7 @@ def update_data(id_value, product, price, category, discount):
         return {"status_code": 500, "message": str(e)}
 
 def main_mr():
-    
-    data = get_data()
+    data, error_message = get_data()
 
     st.title("MODIFICAR Datos de la tabla Productos en Google Sheets")
 
@@ -62,7 +61,6 @@ def main_mr():
             id_list = data['ID'].tolist()
             if id_list:
                 selected_id = st.selectbox("Selecciona un ID de la tabla Productos:", id_list)
-                
                 
                 categories = ['Almacen', 'Mascotas', 'Bebidas y bodega']
 
@@ -111,26 +109,23 @@ def main_mr():
                     if response["status_code"] == 200:
                         st.empty()
                         st.success("Datos modificados exitosamente")
-                        data = get_data()  # Actualizar datos después de la modificación
+                        data, _ = get_data()  # Actualizar datos después de la modificación
                     else:
                         st.error(f"Hubo un error al modificar los datos: {response['message']}")
 
             else:
                 st.warning("No se encontraron IDs para la categoría seleccionada.")
-
-            if data is not None and not data.empty:
-                st.subheader("Tabla Productos en Google Sheets")
-                st.write(data)
-            else:
-                st.warning("No se encontraron datos.")
-
         else:
-            id_list = []
             st.warning("No se encontró la columna 'ID' en los datos.")
-
     else:
-        id_list = []
-    
+        st.warning(f"No se pudieron obtener los datos: {error_message}")
+
+    if data is not None and not data.empty:
+        st.subheader("Tabla Productos en Google Sheets")
+        st.write(data)
+    else:
+        st.warning("No se encontraron datos.")
+
 def insert_data(product, price, category, discount):
     url = "https://python-fastapi-iamgod.koyeb.app/insert"
     payload = {
