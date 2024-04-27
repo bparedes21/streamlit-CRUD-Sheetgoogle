@@ -242,20 +242,17 @@ def main_br():
         
 
 def main():
-    st.set_page_config(
-        page_title="Gestion de Hoja de Cálculo",
-        page_icon="📊",
-        layout="wide",
-        initial_sidebar_state="expanded"
-    )
-        
-    st.sidebar.title("👋 ¡Bienvenido/a!")
 
-    st.sidebar.subheader("Navegue a través del menú:")
-    page = st.sidebar.selectbox(
-        "Seleccione una página:",
-        ("Inicio","Modificar", "Borrar", "Insertar")
-    )
+    st.set_page_config(
+    page_title="Gestion de Hoja de Cálculo",
+    page_icon="📊",
+    layout="wide")
+    with st.sidebar:
+        list_menu=["Inicio","Modificar", "Borrar", "Insertar"]
+        st.sidebar.title("👋 ¡Bienvenido/a!")
+
+        st.sidebar.subheader("Navegue a través del menú:")
+        page =st.sidebar.selectbox( "Menu",list_menu ,index=0)
 
     if page == "Inicio":
         with st.container():
