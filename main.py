@@ -118,11 +118,8 @@ def main_mr():
             else:
                 st.warning("No se encontraron IDs para la categoría seleccionada.")
 
-            if data is not None and not data.empty:
-                st.subheader("Tabla Productos en Google Sheets")
                 st.write(data)
-            else:
-                st.warning("No se encontraron datos.")
+        
 
         else:
          
