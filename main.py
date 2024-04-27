@@ -12,9 +12,14 @@ def get_data():
 
         if response.status_code == 200:
             data = data[0]
-            list_data = data['data']
-            df = pd.DataFrame(list_data)
-            return df
+            if data is not None:
+
+                list_data = data['data']
+                df = pd.DataFrame(list_data)
+                
+                return df
+            else:
+                error_message = f"No hay datos en la tabla"   
         else:
             error_message = f"Error al obtener datos: {response.status_code}"
             return None, error_message
