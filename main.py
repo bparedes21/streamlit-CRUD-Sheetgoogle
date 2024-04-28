@@ -114,8 +114,6 @@ def main_mr():
             else:
                 st.error(f"Hubo un error al modificar los datos: {response['message']}")
 
-        else:
-            st.warning("No se encontraron IDs para la categoría seleccionada.")
 
     st.write(data)
 
