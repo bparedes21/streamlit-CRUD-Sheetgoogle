@@ -47,7 +47,7 @@ def update_data(id_value, product, price, category, discount):
         if response.status_code == 200:
             return {"status_code": 200}
         else:
-            return {"status_code": response.status_code, "message": response.text}
+            return {"status_code": response.status_code}
     except requests.RequestException as e:
         return {"status_code": 500, "message": str(e)}
 
@@ -194,7 +194,7 @@ def main_sr():
             data = get_data()
             st.success("Datos insertados exitosamente")
         else:
-            st.error(f"Hubo un error al insertar los datos: {response.text}")
+            st.error(f"Hubo un error al insertar los datos")
 
         st.subheader("Tabla Productos en Google Sheets")
     st.write(data)
