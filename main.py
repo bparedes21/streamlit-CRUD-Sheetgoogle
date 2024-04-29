@@ -291,7 +291,7 @@ def main():
         df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3)
         
         # Graficar
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(8, 8))  # Reducir tamaño al 50%
         ax.pie(df_grouped, labels=df_grouped.index, autopct='%1.1f%%', startangle=90)
         ax.set_title(f"Top 3 Productos Más Comprados del Mes {mes_ingresado}")
         
