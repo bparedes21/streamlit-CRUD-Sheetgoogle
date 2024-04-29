@@ -273,7 +273,7 @@ def main():
             st.write(data)
 
 
-    elif page == "Gráfico 'Top 3 Productos Más Comprados del Mes Ingresado'":
+    elif page == "Gráfico 'Top 3 Más Comprados Ultimo Mes Ingresado'":
         
         data = get_data()
         
