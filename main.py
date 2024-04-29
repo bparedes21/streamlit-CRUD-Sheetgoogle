@@ -62,7 +62,6 @@ def main_mr():
     
         selected_id = st.selectbox("Selecciona un ID de la tabla Productos:", id_list)
         
-        
         categories = ['Almacen', 'Mascotas', 'Bebidas y bodega']
 
         # Definir los productos para cada categoría junto con sus emojis correspondientes
@@ -85,8 +84,8 @@ def main_mr():
         # Obtener el producto sin emojis correspondiente al seleccionado
         selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
 
-        stock = ["0", "10", "20", "30"]
-        selected_stock = st.selectbox("Seleccione un stock:", stock)
+        cantidad = ["0", "10", "20", "30"]
+        selected_cantidad = st.selectbox("Ingrese una cantidad:", cantidad)
 
         precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
         # Asegurarse de que el valor se trate como un flotante
@@ -103,10 +102,10 @@ def main_mr():
         st.write("Producto:", selected_productos)
         st.write("Precio:", precio_str)
         st.write("Categoría:", category_emoji[selected_category], selected_category)
-        st.write("stock:", selected_stock)
+        st.write("Cantidad:", selected_cantidad)
 
         if st.button("Modificar"):
-            response = update_data(selected_id, selected_producto_sin_emojis, precio_str, selected_category, selected_stock)
+            response = update_data(selected_id, selected_producto_sin_emojis, precio_str, selected_category, selected_cantidad)
             if response["status_code"] == 200:
                 st.empty()
                 st.success("Datos modificados exitosamente")
@@ -116,8 +115,6 @@ def main_mr():
 
 
     st.write(data)
-
-
 
 def insert_data(product, price, category, discount):
     url = "https://python-fastapi-iamgod.koyeb.app/insert"
@@ -165,8 +162,8 @@ def main_sr():
     # Obtener el producto sin emojis correspondiente al seleccionado
     selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
 
-    stock = st.number_input('Ingrese un stock:', min_value=0, step=1)
-    selected_stock=str(stock)
+    cantidad = st.number_input('Ingrese una Cantidad:', min_value=0, step=1)
+    selected_cantidad=str(cantidad)
     precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
     # Asegurarse de que el valor se trate como un flotante
     precio = round(float(precio), 2)
@@ -182,10 +179,10 @@ def main_sr():
     st.write("Producto:", selected_productos)
     st.write("Precio:", precio_str)
     st.write("Categoría:", category_emoji[selected_category], selected_category)
-    st.write("stock:", selected_stock)
-    if st.button("insertar"):# Verificar tipos de datos
+    st.write("Cantidad:", selected_cantidad)
+    if st.button("Insertar"):# Verificar tipos de datos
 
-        response = insert_data(selected_producto_sin_emojis, precio_str , selected_category , selected_stock)
+        response = insert_data(selected_producto_sin_emojis, precio_str , selected_category , selected_cantidad)
         
         if response[1] == 200:
             st.empty()
@@ -234,10 +231,7 @@ def main_br():
 
         st.warning("No se encontraron IDs para la categoría seleccionada.")
 
-   
     st.write(data)
-  
-        
 
 def main():
     st.set_page_config(
