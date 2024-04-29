@@ -21,8 +21,9 @@ Este proyecto te permite interactuar con tus datos de Google Sheets de manera f�
 
 ## Funcionalidades adicionales
 
-- **Validación de datos:** Se realizan validaciones para garantizar que los datos ingresados sean correctos.
-- **Automatización:** Puedes automatizar tareas repetitivas en tus hojas de cálculo mediante la API desarrollada en FastAPI.
+- **Gráfico de compras:** Visualiza las compras realizadas y muestra los productos con más cantidad de compra.
+
+- **Precio promedio:** Calcula el precio promedio de todos los productos mes a mes.
 
 ## Contribuir
 
