@@ -274,6 +274,7 @@ def main():
 
 
     elif page =="Grafico 'Evolución del Precio' ":
+        data = get_data()
         # Convertir la columna de fechas a datetime
         data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'])
 
