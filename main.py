@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def get_data():
     # URL de tu API de FastAPI
@@ -250,7 +251,7 @@ def main():
         st.sidebar.subheader("Navegue a través del menú:")
         page = st.sidebar.selectbox(
             "Seleccione una página:",
-            ("Inicio","Modificar", "Borrar", "Insertar")
+            ("Inicio","Modificar", "Borrar", "Insertar", "Grafico 'Evolución del Precio' ")
         )
 
     if page == "Inicio":
@@ -271,6 +272,28 @@ def main():
             data = get_data()
             st.write(data)
 
+
+    elif page =="Grafico 'Evolución del Precio' ":
+        # Convertir la columna de fechas a datetime
+        data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'])
+
+        # Agrupar por fecha y calcular el promedio de los precios por cantidad
+        df_grouped = data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].mean().reset_index()
+
+        # Crear gráfico de líneas
+        def plot_line_chart(df):
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.plot(df['F. DE COMPRA'], df['PRECIO POR CANT.'], marker='o', color='b', linestyle='-')
+            ax.set_title('Evolución del Precio por Cantidad')
+            ax.set_xlabel('Fecha de Compra')
+            ax.set_ylabel('Precio por Cantidad')
+            ax.grid(True)
+            plt.xticks(rotation=45)
+            st.pyplot(fig)
+
+        # Mostrar gráfico en Streamlit
+        st.title('Evolución del Precio por Cantidad')
+        plot_line_chart(df_grouped)
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
