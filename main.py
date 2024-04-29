@@ -85,9 +85,8 @@ def main_mr():
         # Obtener el producto sin emojis correspondiente al seleccionado
         selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
 
-        cantidad = ["0", "10", "20", "30"]
-        selected_cantidad = st.selectbox("Ingrese una cantidad:", cantidad)
-
+        cantidad = st.number_input('Ingrese una Cantidad:', min_value=0, step=1)
+        selected_cantidad=str(cantidad)
         precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
         # Asegurarse de que el valor se trate como un flotante
         precio = round(float(precio), 2)
