@@ -273,31 +273,28 @@ def main():
             st.write(data)
 
 
-    elif page =="Grafico 'Evolución del Precio' ":
+    elif page == "Grafico 'Evolución del Precio' ":
         data = get_data()
+        
         # Convertir 'F. DE COMPRA' a datetime
         data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'], format='%d/%m/%Y')
-        # Convertir la columna de fechas a datetime
-        data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'])
 
-                   # Calcular el precio promedio por cantidad agrupado por fecha de compra
-        #df_grouped = data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].mean().reset_index()
-        df_groupeds=data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].apply(list)
-        st.write(df_groupeds)
-        # Crear gráfico de líneas
-        def plot_line_chart(df):
-            fig, ax = plt.subplots(figsize=(10, 6))
-            ax.plot(df['F. DE COMPRA'], df['PRECIO POR CANT.'], marker='o', color='b', linestyle='-')
-            ax.set_title('Evolución del Precio por Cantidad')
-            ax.set_xlabel('Fecha de Compra')
-            ax.set_ylabel('Precio por Cantidad')
-            ax.grid(True)
-            plt.xticks(rotation=45)
-            st.pyplot(fig)
+        # Calcular el precio promedio por cantidad agrupado por fecha de compra
+        df_grouped = data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].sum().reset_index()
 
-        # Mostrar gráfico en Streamlit
-        st.title('Evolución del Precio por Cantidad')
-        #plot_line_chart(df_grouped)
+        # Graficar
+        plt.figure(figsize=(10, 6))
+        plt.plot(df_grouped['F. DE COMPRA'], df_grouped['PRECIO POR CANT.'], marker='o', color='skyblue', linestyle='-')
+        plt.title("Evolución del Precio por Fecha de Compra")
+        plt.xlabel("Fecha de Compra")
+        plt.ylabel("Precio por Cantidad")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+
+        # Mostrar gráfico
+        st.pyplot()
+
+    
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
