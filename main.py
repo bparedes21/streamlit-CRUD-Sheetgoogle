@@ -280,9 +280,10 @@ def main():
         # Convertir la columna de fechas a datetime
         data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'])
 
-        # Agrupar por fecha y calcular el promedio de los precios por cantidad
+                   # Calcular el precio promedio por cantidad agrupado por fecha de compra
         df_grouped = data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].mean().reset_index()
 
+        st.write(df_grouped)
         # Crear gráfico de líneas
         def plot_line_chart(df):
             fig, ax = plt.subplots(figsize=(10, 6))
