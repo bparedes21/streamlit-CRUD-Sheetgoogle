@@ -274,6 +274,7 @@ def main():
 
 
     elif page == "Gráfico 'Top 3 Productos Más Comprados del Mes Ingresado'":
+        
         data = get_data()
         
         # Convertir 'F. DE COMPRA' a datetime
@@ -283,26 +284,14 @@ def main():
         mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
         data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == mes_ingresado]
         
-        # Crear una columna que combine el nombre del producto y la cantidad
-        data_mes_ingresado['Producto-Cantidad'] = data_mes_ingresado['PRODUCTO'] + ' (' + data_mes_ingresado['CANTIDAD'].astype(str) + ')'
-        
         # Calcular el total de cada producto por fecha de compra en el mes ingresado
-        df_grouped = data_mes_ingresado.groupby(['F. DE COMPRA', 'Producto-Cantidad']).size().unstack(fill_value=0)
-        
-        # Seleccionar el top 3 de productos para el mes ingresado
-        top_3_products = df_grouped.apply(lambda x: x.nlargest(3).index.tolist(), axis=1)
+        df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3)
         
         # Graficar
-        fig, ax = plt.subplots(figsize=(10, 6))
-        for product in top_3_products:
-            ax.plot(df_grouped.index, df_grouped[product], marker='o', label=product)
+        fig, ax = plt.subplots()
+        ax.pie(df_grouped, labels=df_grouped.index, autopct='%1.1f%%', startangle=90)
         ax.set_title(f"Top 3 Productos Más Comprados del Mes {mes_ingresado}")
-        ax.set_xlabel("Fecha de Compra")
-        ax.set_ylabel("Cantidad")
-        plt.xticks(rotation=45)
-        plt.legend(loc='upper left')
-        plt.tight_layout()
-
+        
         # Mostrar gráfico
         st.pyplot(fig)
 
