@@ -86,11 +86,10 @@ def main_mr():
         selected_producto_sin_emojis = productos_sin_emojis[productos_emojis.index(selected_productos)]
 
         cantidad = st.number_input('Ingrese una Cantidad:', min_value=0, step=1)
-        selected_cantidad=str(cantidad)
+
         precio = st.number_input('Ingrese un precio:', min_value=0.0, format="%.2f")
-        # Asegurarse de que el valor se trate como un flotante
-        precio = round(float(precio), 2)
-        precio_str = str(precio)
+        
+  
 
         # Obtener emoji correspondiente a la categoría seleccionada
         category_emoji = {
@@ -100,12 +99,12 @@ def main_mr():
         }
         st.subheader("Datos:")
         st.write("Producto:", selected_productos)
-        st.write("Precio:", precio_str)
+        st.write("Precio:", precio)
         st.write("Categoría:", category_emoji[selected_category], selected_category)
-        st.write("Cantidad:", selected_cantidad)
+        st.write("Cantidad:", cantidad)
 
         if st.button("Modificar"):
-            response = update_data(selected_id, selected_producto_sin_emojis, precio_str, selected_category, selected_cantidad)
+            response = update_data(selected_id, selected_producto_sin_emojis, precio, selected_category, cantidad)
             if response["status_code"] == 200:
                 st.empty()
                 st.success("Datos modificados exitosamente")
