@@ -284,6 +284,9 @@ def main():
         mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
         data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == mes_ingresado]
         
+        # Convertir la columna 'CANTIDAD' a tipo numérico
+        data_mes_ingresado['CANTIDAD'] = pd.to_numeric(data_mes_ingresado['CANTIDAD'], errors='coerce')
+        
         # Calcular el total de cada producto por fecha de compra en el mes ingresado
         df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3)
         
