@@ -281,9 +281,9 @@ def main():
         data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'])
 
                    # Calcular el precio promedio por cantidad agrupado por fecha de compra
-        df_grouped = data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].mean().reset_index()
-
-        st.write(df_grouped)
+        #df_grouped = data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].mean().reset_index()
+        df_groupeds=data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].apply(list)
+        st.write(df_groupeds)
         # Crear gráfico de líneas
         def plot_line_chart(df):
             fig, ax = plt.subplots(figsize=(10, 6))
@@ -297,7 +297,7 @@ def main():
 
         # Mostrar gráfico en Streamlit
         st.title('Evolución del Precio por Cantidad')
-        plot_line_chart(df_grouped)
+        #plot_line_chart(df_grouped)
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
