@@ -273,7 +273,7 @@ def main():
             st.write(data)
 
 
-    elif page == "Gráfico 'Top 3 Productos Más Comprados del Mes Ingresado'":
+    elif page == "Gráfico 'Top 3 Productos Más Comprados del Ultimo Mes Ingresado'":
         
         data = get_data()
         
@@ -293,7 +293,7 @@ def main():
         # Graficar
         fig, ax = plt.subplots(figsize=(2, 2))  # Reducir tamaño al 50%
         ax.pie(df_grouped, labels=df_grouped.index, autopct='%1.1f%%', startangle=90)
-        ax.set_title(f"Top 3 Productos Más Comprados del Mes {mes_ingresado}")
+        ax.set_title(f" 'Top 3 Productos Más Comprados del Ultimo Mes Ingresado' {mes_ingresado}")
         
         # Mostrar gráfico
         st.pyplot(fig)
