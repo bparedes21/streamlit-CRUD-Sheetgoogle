@@ -244,11 +244,13 @@ def main():
     page_title="Gestion de Hoja de Cálculo",
     page_icon="📊",
     layout="wide")
+    # Título principal
+    st.title("Hojas de Cálculo: Gestión de Datos")
+    st.write("📊 Proyecto de gestión de datos con hojas de cálculo.")
+    st.write("Creado por: Alexis Andrade")
 
-    st.title("Hoja de Cálculo")
-    st.write(":eyeglasses: proyecto de gestión de datos 📊")
+    # Sidebar con mensaje de bienvenida
     with st.sidebar:
-       
         st.sidebar.title("👋 ¡Bienvenido/a!")
 
         st.sidebar.subheader("Navegue a través del menú:")
