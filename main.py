@@ -273,28 +273,39 @@ def main():
             st.write(data)
 
 
-    elif page == "Grafico 'Evolución del Precio' ":
+    elif page == "Gráfico 'Top 3 Productos Más Comprados del Mes Ingresado'":
         data = get_data()
         
         # Convertir 'F. DE COMPRA' a datetime
         data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'], format='%d/%m/%Y')
-
-        # Calcular el precio promedio por cantidad agrupado por fecha de compra
-        df_grouped = data.groupby('F. DE COMPRA')['PRECIO POR CANT.'].sum().reset_index()
-
+        
+        # Obtener el mes ingresado en la planilla
+        mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
+        data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == mes_ingresado]
+        
+        # Crear una columna que combine el nombre del producto y la cantidad
+        data_mes_ingresado['Producto-Cantidad'] = data_mes_ingresado['PRODUCTO'] + ' (' + data_mes_ingresado['CANTIDAD'].astype(str) + ')'
+        
+        # Calcular el total de cada producto por fecha de compra en el mes ingresado
+        df_grouped = data_mes_ingresado.groupby(['F. DE COMPRA', 'Producto-Cantidad']).size().unstack(fill_value=0)
+        
+        # Seleccionar el top 3 de productos para el mes ingresado
+        top_3_products = df_grouped.apply(lambda x: x.nlargest(3).index.tolist(), axis=1)
+        
         # Graficar
-        plt.figure(figsize=(10, 6))
-        plt.plot(df_grouped['F. DE COMPRA'], df_grouped['PRECIO POR CANT.'], marker='o', color='skyblue', linestyle='-')
-        plt.title("Evolución del Precio por Fecha de Compra")
-        plt.xlabel("Fecha de Compra")
-        plt.ylabel("Precio por Cantidad")
+        fig, ax = plt.subplots(figsize=(10, 6))
+        for product in top_3_products:
+            ax.plot(df_grouped.index, df_grouped[product], marker='o', label=product)
+        ax.set_title(f"Top 3 Productos Más Comprados del Mes {mes_ingresado}")
+        ax.set_xlabel("Fecha de Compra")
+        ax.set_ylabel("Cantidad")
         plt.xticks(rotation=45)
+        plt.legend(loc='upper left')
         plt.tight_layout()
 
         # Mostrar gráfico
-        st.pyplot()
+        st.pyplot(fig)
 
-    
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
