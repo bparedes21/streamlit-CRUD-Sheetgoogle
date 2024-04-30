@@ -238,11 +238,11 @@ def main():
     page_icon="📊",
     layout="wide")
     # Título principal
-    st.title("Creado por: Alexis Andrade")
+    st.write("Creado por: Alexis Andrade")
 
     # Sidebar con mensaje de bienvenida
     with st.sidebar:
-        st.sidebar.title("👋 ¡Bienvenido/a!")
+        st.sidebar.title("# 👋 ¡Bienvenido/a!")
 
         st.sidebar.subheader("Navegue a través del menú:")
         page = st.sidebar.selectbox(
