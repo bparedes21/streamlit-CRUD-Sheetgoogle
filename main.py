@@ -238,9 +238,7 @@ def main():
     page_icon="📊",
     layout="wide")
     # Título principal
-    st.title("Hojas de Cálculo: Gestión de Datos")
-    st.write("📊 Proyecto de gestión de datos con hojas de cálculo.")
-    st.write("Creado por: Alexis Andrade")
+    st.title("Creado por: Alexis Andrade")
 
     # Sidebar con mensaje de bienvenida
     with st.sidebar:
@@ -262,7 +260,7 @@ def main():
             "Insertar": "Insertar nuevos datos en la hoja de cálculo."
             }
 
-            st.write("# Bienvenidos a nuestro proyecto de gestión de datos 📊")
+            st.write("👋 ¡Bienvenido/a! a mi proyecto de gestión de datos 📊")
             st.markdown("Puedes encontrar la hoja de GOOGLE en  [Google Sheets](https://docs.google.com/spreadsheets/d/1wF_mgiNfDMFZp5M94imuFpXHdND9bvKOD41IjZNNqdo/edit?usp=sharing)")
             st.write("Este proyecto tiene como objetivo facilitar la gestión de datos de una hoja de cálculo a través de una interfaz amigable y fácil de usar.")
             for page, explanation in page_explanations.items():
