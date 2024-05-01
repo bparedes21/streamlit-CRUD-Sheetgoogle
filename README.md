@@ -21,8 +21,8 @@ Este proyecto te permite interactuar con tus datos de Google Sheets de manera f�
 
 <p align="center">
    <a href="https://docs.google.com/spreadsheets/d/1wF_mgiNfDMFZp5M94imuFpXHdND9bvKOD41IjZNNqdo/edit?usp=sharing">
-  <img src="/Mision/portada 1.jpg" alt="Streamlit" width="40%">
-</a>Click para ir Google Sheets
+  <img src="/Mision/portada 1.jpg" alt="Streamlit" width="40%">Click para ir Google Sheets
+</a>
 </p>
 
 ## ¿Cómo usar?
