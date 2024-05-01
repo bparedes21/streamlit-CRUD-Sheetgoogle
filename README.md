@@ -5,11 +5,11 @@
 </a>
 </p>
 
-# Streamlit CRUD con Google Sheets
+# Aplicacion Web.
 
 Este es un proyecto que utiliza Streamlit para crear una interfaz de usuario y FastAPI como backend para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en hojas de cálculo de Google.
 
-## ¿Qué hace este proyecto?
+## ¿Qué hace este proyecto?.
 
 Este proyecto te permite interactuar con tus datos de Google Sheets de manera fácil y rápida. Puedes realizar las siguientes acciones:
 
@@ -25,21 +25,18 @@ Este proyecto te permite interactuar con tus datos de Google Sheets de manera f�
 </a>
 </p>
 
-## ¿Cómo usar?
-
-[App -Gestion Planilla Google](https://app-crud-sheetapp-6pkbsnjvrvldurgc7gsjwz.streamlit.app/).
 
 4. **Interacción:**
    - Abre la URL proporcionada por Streamlit en tu navegador.
    - Utiliza la interfaz para realizar las operaciones CRUD en tus datos de Google Sheets.
 
-## Funcionalidades adicionales
+## Funcionalidades adicionales.
 
 - **Gráfico de compras:** Visualiza las compras realizadas y muestra los productos con más cantidad de compra.
 
 - **Precio promedio:** Calcula el precio promedio de todos los productos mes a mes.
 
-## Contribuir
+## Contribuir.
 
 Este proyecto fue creado por [Alexis Andrade](https://github.com/bparedes21).
 
