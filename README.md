@@ -6,7 +6,6 @@
 </p>
 
 # Aplicacion Web.
-
 Este es un proyecto que utiliza Streamlit para crear una interfaz de usuario y FastAPI como backend para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en hojas de cálculo de Google.
 
 ## ¿Qué hace este proyecto?.
@@ -33,7 +32,10 @@ Este proyecto te permite interactuar con tus datos de Google Sheets de manera f�
 ## Funcionalidades adicionales.
 
 - **Gráfico de compras:** Visualiza las compras realizadas y muestra los productos con más cantidad de compra.
-
+<p align="center">
+  <img src="/Mision/portada 2.jpg" alt="Streamlit" width="40%">
+</a>
+</p>
 
 ## Contribuir.
 
