@@ -18,6 +18,13 @@ Este proyecto te permite interactuar con tus datos de Google Sheets de manera f�
 - **Actualizar:** Modificar los datos existentes en tu hoja de cálculo.
 - **Eliminar:** Eliminar datos de tu hoja de cálculo.
 
+
+<p align="center">
+   <a href="https://docs.google.com/spreadsheets/d/1wF_mgiNfDMFZp5M94imuFpXHdND9bvKOD41IjZNNqdo/edit?usp=sharing">
+  <img src="/Mision/portada 1.jpg" alt="Streamlit" width="40%">
+</a>
+</p>
+
 ## ¿Cómo usar?
 
 [App -Gestion Planilla Google](https://app-crud-sheetapp-6pkbsnjvrvldurgc7gsjwz.streamlit.app/).
