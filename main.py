@@ -310,9 +310,9 @@ def main():
 
         # Filtrar por categoría
         df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
-
+        df_filtered.groupby('PRODUCTO')['PRECIO POR CANT'].sum().nlargest(3)
         # Ordenar por precio unitario
-        df_sorted = df_filtered.sort_values(by="PRECIO U", ascending=False)
+        df_sorted = df_filtered.sort_values(by="PRECIO POR CANT", ascending=False)
 
         # Obtener los 5 productos más caros
         top_5_products = df_sorted.head(5)["PRODUCTO"].tolist()
