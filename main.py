@@ -316,9 +316,11 @@ def main():
         df_grouped = df_filtered.groupby('PRODUCTO')['PRECIO POR CANT.'].sum().nlargest(3)
         # Filtrar los productos más caros
         top_3_products = df_grouped.index.tolist()
+        # Filtrar por los 3 productos más caros
+        df_top_3 = df_filtered[df_filtered["PRODUCTO"].isin(top_3_products)]
         # Graficar
         st.title("Top 3 De Total de Precio por producto: Bebidas y bodega, Almacen")
-        st.write(top_3_products)
+        st.write(df_top_3)
 
 if __name__ == "__main__":
     main()
