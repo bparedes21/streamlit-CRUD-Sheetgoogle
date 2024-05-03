@@ -318,9 +318,7 @@ def main():
         top_3_products = df_grouped.index.tolist()
         # Graficar
         st.title("Variación de precios a lo largo del tiempo de los 3 productos más caros")
-        st.write("Gráfico que muestra la variación de precios a lo largo del tiempo de los 3 productos más caros de las categorías 'Bebidas y bodega' y 'Almacen'.")
-
-        st.pyplot(top_3_products)
+        st.write(top_3_products)
 
 if __name__ == "__main__":
     main()
