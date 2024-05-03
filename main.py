@@ -309,16 +309,16 @@ def main():
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Filtrar por categoría
-        df_bebidas = df[df["CATEGORIA"] == "Bebidas y bodega"]
-        df_almacen = df[df["CATEGORIA"] == "Almacen"]
+        df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
 
         # Ordenar por precio unitario
-        df_bebidas_sorted = df_bebidas.sort_values(by="PRECIO U", ascending=False)
-        df_almacen_sorted = df_almacen.sort_values(by="PRECIO U", ascending=False)
+        df_sorted = df_filtered.sort_values(by="PRECIO U", ascending=False)
 
-        # Obtener los 5 productos más caros de cada categoría
-        top_5_bebidas = df_bebidas_sorted.head(5)
-        top_5_almacen = df_almacen_sorted.head(5)
+        # Seleccionar los 5 productos más caros
+        top_5_products = df_sorted.head(5)["PRODUCTO"].tolist()
+
+        # Filtrar por los 5 productos más caros
+        df_top_5 = df_sorted[df_sorted["PRODUCTO"].isin(top_5_products)]
 
         # Graficar
         st.title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
@@ -326,10 +326,9 @@ def main():
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        for i, df_top_5 in enumerate([top_5_bebidas, top_5_almacen]):
-            category = "Bebidas y bodega" if i == 0 else "Almacen"
-            for _, row in df_top_5.iterrows():
-                ax.plot(df_top_5["F. DE COMPRA"], df_top_5["PRECIO U"], marker='o', label=row["PRODUCTO"] + " - " + category)
+        for product in top_5_products:
+            df_product = df_top_5[df_top_5["PRODUCTO"] == product]
+            ax.plot(df_product["F. DE COMPRA"], df_product["PRECIO U"], marker='o', label=product)
 
         ax.set_xlabel("Fecha de compra")
         ax.set_ylabel("Precio Unitario")
