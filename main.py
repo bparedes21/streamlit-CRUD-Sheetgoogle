@@ -247,7 +247,7 @@ def main():
         st.sidebar.subheader("Navegue a través del menú:")
         page = st.sidebar.selectbox(
             "Seleccione una página:",
-            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'")
+            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'","Variacion")
         )
 
     if page == "Inicio":
