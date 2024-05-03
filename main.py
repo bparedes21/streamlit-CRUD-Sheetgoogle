@@ -309,7 +309,7 @@ def main():
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Filtrar por categoría
-        #df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
+        df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
         #df_filtered.groupby('PRODUCTO')['PRECIO POR CANT'].sum().nlargest(3)
         # Ordenar por precio unitario
        # df_sorted = df_filtered.sort_values(by="PRECIO POR CANT", ascending=False)
