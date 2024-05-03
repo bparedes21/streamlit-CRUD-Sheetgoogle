@@ -326,12 +326,12 @@ def main():
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        for product in df_top_5["Producto"].unique():
-            df_product = df_top_5[df_top_5["Producto"] == product]
-            ax.plot(df_product["Fecha de compra"], df_product["Precio Unitario"], marker='o', label=product)
+        for product in df_top_5["PRODUCTO"].unique():
+            df_product = df_top_5[df_top_5["PRODUCTO"] == product]
+            ax.plot(df_product["F. DE COMPRA"], df_product["PRECIO U"], marker='o', label=product)
 
-        ax.set_xlabel("Fecha de compra")
-        ax.set_ylabel("Precio Unitario")
+        ax.set_xlabel("F. DE COMPRA")
+        ax.set_ylabel("PRECIO U")
         ax.set_title("Variación de precios a lo largo del tiempo")
         ax.legend()
         ax.grid(True)
