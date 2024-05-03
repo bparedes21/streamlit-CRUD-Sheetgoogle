@@ -307,6 +307,8 @@ def main():
         
         df = pd.DataFrame(data)
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
+        # Limpiar caracteres y convertir a tipo numérico
+        df["PRECIO POR CANT."] = df["PRECIO POR CANT."].str.replace(",", "").astype(float)
 
         # Filtrar por categoría
         df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
