@@ -321,18 +321,18 @@ def main():
         df_top_5 = df_sorted[df_sorted["PRODUCTO"].isin(top_5_products)]
 
         # Graficar
-        st.title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
-        st.write("Gráfico que muestra la variación de precios a lo largo del tiempo de los 5 productos más caros de las categorías 'Bebidas y bodega' y 'Almacen'.")
+        st.title("Variación de precios a lo largo del tiempo")
+        st.write("Gráfico que muestra la variación de precios de algunos productos a lo largo del tiempo.")
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        for product in top_5_products:
-            df_product = df_top_5[df_top_5["PRODUCTO"] == product]
-            ax.plot(df_product["F. DE COMPRA"], df_product["PRECIO U"], marker='o', label=product)
+        for product in df_top_5["Producto"].unique():
+            df_product = df_top_5[df_top_5["Producto"] == product]
+            ax.plot(df_product["Fecha de compra"], df_product["Precio Unitario"], marker='o', label=product)
 
         ax.set_xlabel("Fecha de compra")
         ax.set_ylabel("Precio Unitario")
-        ax.set_title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
+        ax.set_title("Variación de precios a lo largo del tiempo")
         ax.legend()
         ax.grid(True)
 
