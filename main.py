@@ -320,19 +320,7 @@ def main():
         st.title("Variación de precios a lo largo del tiempo de los 3 productos más caros")
         st.write("Gráfico que muestra la variación de precios a lo largo del tiempo de los 3 productos más caros de las categorías 'Bebidas y bodega' y 'Almacen'.")
 
-        fig, ax = plt.subplots(figsize=(10, 6))
-
-        for product in top_3_products:
-            df_product = top_3_products[top_3_products["PRODUCTO"] == product]
-            ax.plot(df_product["F. DE COMPRA"], df_product["PRECIO U"], marker='o', label=product)
-
-        ax.set_xlabel("Fecha de compra")
-        ax.set_ylabel("Precio Unitario")
-        ax.set_title("Variación de precios a lo largo del tiempo de los 3 productos más caros")
-        ax.legend()
-        ax.grid(True)
-
-        st.pyplot(fig)
+        st.pyplot(top_3_products)
 
 if __name__ == "__main__":
     main()
