@@ -247,7 +247,7 @@ def main():
         st.sidebar.subheader("Navegue a través del menú:")
         page = st.sidebar.selectbox(
             "Seleccione una página:",
-            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'")
+            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'","Variación de precios")
         )
 
     if page == "Inicio":
@@ -289,17 +289,38 @@ def main():
         # Graficar
         fig, ax = plt.subplots(figsize=(2, 2))  # Reducir tamaño al 50%
         ax.pie(df_grouped, labels=df_grouped.index, autopct='%1.1f%%', startangle=90)
-        ax.set_title(f" 'Top 3 Productos con mas Unidades compradas del Ultimo Mes Ingresado' {mes_ingresado}")
+        ax.set_title(f" 'Top 3 Productos' {mes_ingresado}")
         
         # Mostrar gráfico
         st.pyplot(fig)
-
+        st.write("con mas Unidades compradas del Ultimo Mes Ingresado")
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
         main_br()
     elif page == "Insertar":
         main_sr()
+    elif page == "Variación de precios":
+        main_sr()
+        data = get_data()
+        data["Fecha de compra"] = pd.to_datetime(data["Fecha de compra"], format='%d/%m/%Y')
 
+        # Graficar
+        st.title("Variación de precios a lo largo del tiempo")
+        st.write("Gráfico que muestra la variación de precios de algunos productos a lo largo del tiempo.")
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+
+        for product in data["Producto"].unique():
+            df_product = data[data["Producto"] == product]
+            ax.plot(df_product["Fecha de compra"], df_product["Precio Unitario"], marker='o', label=product)
+
+        ax.set_xlabel("Fecha de compra")
+        ax.set_ylabel("Precio Unitario")
+        ax.set_title("Variación de precios a lo largo del tiempo")
+        ax.legend()
+        ax.grid(True)
+
+        st.pyplot(fig)
 if __name__ == "__main__":
     main()
