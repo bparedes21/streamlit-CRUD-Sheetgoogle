@@ -247,7 +247,7 @@ def main():
         st.sidebar.subheader("Navegue a través del menú:")
         page = st.sidebar.selectbox(
             "Seleccione una página:",
-            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'","Variación de precios")
+            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'")
         )
 
     if page == "Inicio":
@@ -294,12 +294,53 @@ def main():
         # Mostrar gráfico
         st.pyplot(fig)
         st.write("con mas Unidades compradas del Ultimo Mes Ingresado")
+
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
         main_br()
     elif page == "Insertar":
         main_sr()
+    elif page == "Variacion":
         
+        data = get_data()
+        
+        # Convertir 'F. DE COMPRA' a datetime
+        data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'], format='%d/%m/%Y')
+        
+        # Obtener el mes ingresado en la planilla
+        mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
+        data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == mes_ingresado]
+        
+        # Convertir la columna 'CANTIDAD' a tipo numérico
+        data_mes_ingresado['CANTIDAD'] = pd.to_numeric(data_mes_ingresado['CANTIDAD'], errors='coerce')
+        
+        # Calcular el total de cada producto por fecha de compra en el mes ingresado
+        df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3)
+        # Ordenar por precio unitario
+        df_bebidas_sorted = df_grouped.sort_values(by="PRECIO U", ascending=False)
+       
+
+        # Obtener los 5 productos más caros de cada categoría
+        top_5_prod = df_bebidas_sorted.head(5)
+        # Graficar
+        st.title("Variación de precios a lo largo del tiempo")
+        st.write("Gráfico que muestra la variación de precios de algunos productos a lo largo del tiempo.")
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+
+        for product in top_5_prod["Producto"].unique():
+            df_product = top_5_prod[top_5_prod["Producto"] == product]
+            ax.plot(df_product["Fecha de compra"], df_product["Precio Unitario"], marker='o', label=product)
+
+        # Graficar
+        fig, ax = plt.subplots(figsize=(2, 2))  # Reducir tamaño al 50%
+        ax.pie(df_grouped, labels=df_grouped.index, autopct='%1.1f%%', startangle=90)
+        ax.set_title(f" 'Top 3 Productos' {mes_ingresado}")
+        
+        # Mostrar gráfico
+        st.pyplot(fig)
+        st.write("con mas Unidades compradas del Ultimo Mes Ingresado")
+
 if __name__ == "__main__":
     main()
