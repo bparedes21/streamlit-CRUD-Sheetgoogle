@@ -317,7 +317,7 @@ def main():
         # Filtrar los productos más caros
         top_3_products = df_grouped.index.tolist()
         # Graficar
-        st.title("Variación de precios a lo largo del tiempo de los 3 productos más caros")
+        st.title("Top 3 De Total de Precio por producto")
         st.write(top_3_products)
 
 if __name__ == "__main__":
