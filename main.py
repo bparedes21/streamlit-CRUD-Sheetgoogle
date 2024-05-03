@@ -308,21 +308,33 @@ def main():
         df = pd.DataFrame(data)
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
-        # Ordenar por precio unitario
-        df_sorted = df.sort_values(by="PRECIO U", ascending=False)
+        # Filtrar por categoría
+        df_bebidas = df[df["CATEGORIA"] == "Bebidas y bodega"]
+        df_almacen = df[df["CATEGORIA"] == "Almacen"]
 
-        # Gráfico de los productos más caros
-        st.title("Productos más caros")
-        st.write("Gráfico que muestra los productos más caros por precio unitario.")
+        # Ordenar por precio unitario
+        df_bebidas_sorted = df_bebidas.sort_values(by="PRECIO U", ascending=False)
+        df_almacen_sorted = df_almacen.sort_values(by="PRECIO U", ascending=False)
+
+        # Obtener los 5 productos más caros de cada categoría
+        top_5_bebidas = df_bebidas_sorted.head(5)
+        top_5_almacen = df_almacen_sorted.head(5)
+
+        # Graficar
+        st.title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
+        st.write("Gráfico que muestra la variación de precios a lo largo del tiempo de los 5 productos más caros de las categorías 'Bebidas y bodega' y 'Almacen'.")
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        for _, row in df_sorted.iterrows():
-            ax.bar(row["PRODUCTO"], row["PRECIO U"], color='skyblue')
+        for i, df_top_5 in enumerate([top_5_bebidas, top_5_almacen]):
+            category = "Bebidas y bodega" if i == 0 else "Almacen"
+            for _, row in df_top_5.iterrows():
+                ax.plot(df_top_5["F. DE COMPRA"], df_top_5["PRECIO U"], marker='o', label=row["PRODUCTO"] + " - " + category)
 
-        ax.set_xlabel("Producto")
+        ax.set_xlabel("Fecha de compra")
         ax.set_ylabel("Precio Unitario")
-        ax.set_title("Productos más caros")
+        ax.set_title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
+        ax.legend()
         ax.grid(True)
 
         st.pyplot(fig)
