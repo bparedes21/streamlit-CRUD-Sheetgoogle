@@ -304,38 +304,25 @@ def main():
     elif page == "Variacion":
         
         data = get_data()
-
+        
         df = pd.DataFrame(data)
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Filtrar por categoría
         df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
-
+        df_filtered.groupby('PRODUCTO')['PRECIO POR CANT'].sum().nlargest(3)
         # Ordenar por precio unitario
-        df_sorted = df_filtered.sort_values(by="PRECIO U", ascending=False)
+       # df_sorted = df_filtered.sort_values(by="PRECIO POR CANT", ascending=False)
 
         # Obtener los 5 productos más caros
-        top_5_products = df_sorted.head(5)["PRODUCTO"].tolist()
+        #top_5_products = df_sorted.head(5)["PRODUCTO"].tolist()
 
         # Filtrar por los 5 productos más caros
-        df_top_5 = df_sorted[df_sorted["PRODUCTO"].isin(top_5_products)]
+        #df_top_5 = df_sorted[df_sorted["PRODUCTO"].isin(top_5_products)]
 
         # Graficar
         st.title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
-        st.write("Gráfico que muestra la variación de precios a lo largo del tiempo de los 5 productos más caros de las categorías 'Bebidas y bodega' y 'Almacen'.")
+        st.write(df_filtered)
 
-        fig, ax = plt.subplots(figsize=(10, 6))
-
-        for product in top_5_products:
-            df_product = df_top_5[df_top_5["PRODUCTO"] == product]
-            ax.plot(df_product["F. DE COMPRA"], df_product["PRECIO U"], marker='o', label=product)
-
-        ax.set_xlabel("Fecha de compra")
-        ax.set_ylabel("Precio Unitario")
-        ax.set_title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
-        ax.legend()
-        ax.grid(True)
-
-        st.pyplot(fig)
 if __name__ == "__main__":
     main()
