@@ -308,20 +308,21 @@ def main():
         df = pd.DataFrame(data)
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
-        # Graficar
-        st.title("Variación de precios a lo largo del tiempo")
-        st.write("Gráfico que muestra la variación de precios de algunos productos a lo largo del tiempo.")
+        # Ordenar por precio unitario
+        df_sorted = df.sort_values(by="PRECIO U", ascending=False)
+
+        # Gráfico de los productos más caros
+        st.title("Productos más caros")
+        st.write("Gráfico que muestra los productos más caros por precio unitario.")
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        for product in df["PRODUCTO"].unique():
-            df_product = df[df["PRODUCTO"] == product]
-            ax.plot(df_product["F. DE COMPRA"], df_product["PRECIO U"], marker='o', label=product)
+        for _, row in df_sorted.iterrows():
+            ax.bar(row["PRODUCTO"], row["PRECIO U"], color='skyblue')
 
-        ax.set_xlabel("Fecha de compra")
+        ax.set_xlabel("Producto")
         ax.set_ylabel("Precio Unitario")
-        ax.set_title("Variación de precios a lo largo del tiempo")
-        ax.legend()
+        ax.set_title("Productos más caros")
         ax.grid(True)
 
         st.pyplot(fig)
