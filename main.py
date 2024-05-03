@@ -320,7 +320,7 @@ def main():
         df_top_3 = df[df["PRODUCTO"].isin(top_3_products)]
         # Graficar
         st.title("Top 3 De Total de Precio por producto: Bebidas y bodega, Almacen")
-        st.write(df_top_3)
+        st.write(top_3_products)
 
 if __name__ == "__main__":
     main()
