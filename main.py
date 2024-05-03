@@ -309,8 +309,8 @@ def main():
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Filtrar por categoría
-        df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
-        df_filtered.groupby('PRODUCTO')['PRECIO POR CANT'].sum().nlargest(3)
+        #df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
+        #df_filtered.groupby('PRODUCTO')['PRECIO POR CANT'].sum().nlargest(3)
         # Ordenar por precio unitario
        # df_sorted = df_filtered.sort_values(by="PRECIO POR CANT", ascending=False)
 
@@ -322,7 +322,7 @@ def main():
 
         # Graficar
         st.title("Variación de precios a lo largo del tiempo de los 5 productos más caros")
-        st.write(df_filtered)
+        st.write(df)
 
 if __name__ == "__main__":
     main()
