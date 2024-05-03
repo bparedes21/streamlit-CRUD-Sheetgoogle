@@ -301,9 +301,12 @@ def main():
     elif page == "Insertar":
         main_sr()
     elif page == "Variación de precios":
-        main_sr()
+       
         data = get_data()
-        data["Fecha de compra"] = pd.to_datetime(data["Fecha de compra"], format='%d/%m/%Y')
+    
+
+        df = pd.DataFrame(data)
+        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Graficar
         st.title("Variación de precios a lo largo del tiempo")
@@ -311,9 +314,9 @@ def main():
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        for product in data["Producto"].unique():
-            df_product = data[data["Producto"] == product]
-            ax.plot(df_product["Fecha de compra"], df_product["Precio Unitario"], marker='o', label=product)
+        for product in df["PRODUCTO"].unique():
+            df_product = df[df["PRODUCTO"] == product]
+            ax.plot(df_product["F. DE COMPRA"], df_product["PRECIO U"], marker='o', label=product)
 
         ax.set_xlabel("Fecha de compra")
         ax.set_ylabel("Precio Unitario")
