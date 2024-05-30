@@ -306,14 +306,15 @@ def main():
         data = get_data()
         
         df = pd.DataFrame(data)
+
         # Configuración de la página
         st.title("Top 3 De Total de Precio por producto: Bebidas y bodega, Almacen")
 
         # Filtrar por categoría
         df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
 
-        # Obtener los 3 productos con mayor precio por cantidad
-        df_top_3 = df_filtered.nlargest(3, "PRECIO POR CANT.")
+        # Ordenar el DataFrame en orden descendente según "PRECIO POR CANT." y seleccionar las tres primeras filas
+        df_top_3 = df_filtered.sort_values(by="PRECIO POR CANT.", ascending=False).head(3)
 
         # Mostrar la tabla con los 3 productos más caros
         st.write(df_top_3)
