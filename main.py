@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def get_data():
     # URL de tu API de FastAPI
-    api_url = "https://python-fastapi-iamgod.koyeb.app"  # Actualiza con la URL de tu API
+    api_url = "https://zippy-angelina-iamgod-54e12d2b.koyeb.app"  # Actualiza con la URL de tu API
 
     try:
         response = requests.get(f"{api_url}/read")
