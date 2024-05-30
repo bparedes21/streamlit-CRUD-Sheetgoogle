@@ -306,21 +306,17 @@ def main():
         data = get_data()
         
         df = pd.DataFrame(data)
-        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
-        # Limpiar caracteres y convertir a tipo numérico
-        df["PRECIO POR CANT."] = df["PRECIO POR CANT."].str.replace(",", "").astype(float)
+        # Configuración de la página
+        st.title("Top 3 De Total de Precio por producto: Bebidas y bodega, Almacen")
 
         # Filtrar por categoría
         df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
-        # Agrupar por producto y sumar el precio por cantidad
-        df_grouped = df_filtered.groupby('PRODUCTO')['PRECIO POR CANT.'].sum().nlargest(3)
-        # Filtrar los productos más caros
-        top_3_products = df_grouped.index.tolist()
-        # Filtrar por los 3 productos más caros
-        df_top_3 = df[df["PRODUCTO"].isin(top_3_products)]
-        # Graficar
-        st.title("Top 3 De Total de Precio por producto: Bebidas y bodega, Almacen")
-        st.write(top_3_products)
+
+        # Obtener los 3 productos con mayor precio por cantidad
+        df_top_3 = df_filtered.nlargest(3, "PRECIO POR CANT.")
+
+        # Mostrar la tabla con los 3 productos más caros
+        st.write(df_top_3)
 
 if __name__ == "__main__":
     main()
