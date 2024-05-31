@@ -312,23 +312,19 @@ def main():
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
 
-        # Convertir la columna 'F. DE COMPRA' a tipo datetime
-        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"])
+        # Agrupar por fecha de compra y calcular el total del precio por cantidad por día
+        df_grouped = df.groupby("F. DE COMPRA").agg({"PRECIO POR CANT.": "sum"}).reset_index()
 
-        # Agrupar por fecha de compra y calcular el total de la compra por día
-        df_grouped = df.groupby("F. DE COMPRA").agg({"CANTIDAD": "sum"}).reset_index()
-        st.write(df_grouped)
         # Crear el gráfico interactivo con Plotly
-        fig = px.line(df_grouped, x='F. DE COMPRA', y='CANTIDAD', title="Evolución del Total de Compra por Día",
-                    labels={'CANTIDAD': 'Total de Compra', 'F. DE COMPRA': 'Fecha de Compra'})
+        fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', title="Evolución del Total de Precios por Día",
+                    labels={'PRECIO POR CANT.': 'Total de Precios', 'F. DE COMPRA': 'Fecha de Compra'})
 
         # Configurar diseño y estilo del gráfico
-        fig.update_traces(mode='lines+markers', hovertemplate='<b>%{x}</b><br><br>Producto: %{text}<br>Cantidad: %{y}')
-        fig.update_layout(hovermode="x unified", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Total de Compra"))
+        fig.update_traces(mode='lines+markers', hovertemplate='<b>%{x}</b><br><br>Total de Precios: $%{y:,.2f}')
+        fig.update_layout(hovermode="x unified", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Total de Precios"))
 
         # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
-
 
 
 if __name__ == "__main__":
