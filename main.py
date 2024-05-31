@@ -299,7 +299,7 @@ def main():
         # Añadir los datos de la torta
         fig.add_trace(go.Pie(labels=df_grouped.index, values=df_grouped, 
                             hoverinfo='label+percent', textinfo='value+label',
-                            textfont_size=12))
+                            textfont_size=20))
 
         # Título del gráfico
         fig.update_layout(title_text=f"Top 3 Productos por Cantidad en {mes_ingresado}")
