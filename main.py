@@ -277,12 +277,15 @@ def main():
         
         # Convertir 'F. DE COMPRA' a datetime
         data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'], format='%d/%m/%Y')
+        # Obtener los meses únicos
+        meses_unicos = data['F. DE COMPRA'].dt.to_period('M').unique().tolist()
+        selected_mes = st.selectbox("Selecciona una categoría:", meses_unicos)
                 # Convertir la columna 'CANTIDAD' a tipo entero
         data["CANTIDAD"] = data["CANTIDAD"].astype(int)
         
         # Obtener el mes ingresado en la planilla
         mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
-        data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == mes_ingresado]
+        data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == selected_mes]
 
         # Convertir la columna 'CANTIDAD' a tipo numérico
         data_mes_ingresado['CANTIDAD'] = pd.to_numeric(data_mes_ingresado['CANTIDAD'], errors='coerce')
