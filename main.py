@@ -317,7 +317,7 @@ def main():
 
         # Agrupar por fecha de compra y calcular el total de la compra por día
         df_grouped = df.groupby("F. DE COMPRA").agg({"CANTIDAD": "sum"}).reset_index()
-
+        st.write(df_grouped)
         # Crear el gráfico interactivo con Plotly
         fig = px.line(df_grouped, x='F. DE COMPRA', y='CANTIDAD', title="Evolución del Total de Compra por Día",
                     labels={'CANTIDAD': 'Total de Compra', 'F. DE COMPRA': 'Fecha de Compra'})
