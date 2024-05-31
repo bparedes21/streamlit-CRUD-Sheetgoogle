@@ -306,7 +306,7 @@ def main():
         data = get_data()
         
         df = pd.DataFrame(data)
-
+    
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
@@ -319,11 +319,11 @@ def main():
 
         # Crear el gráfico de evolución
         fig, ax = plt.subplots()
-        ax.plot(df["F. DE COMPRA"], df["TOTAL COMPRA"], marker='o', linestyle='-')
+        ax.plot(df["F. DE COMPRA"], df["PRECIO POR CANT."], marker='o', linestyle='-')
 
         # Configurar etiquetas y título
         ax.set_xlabel("Fecha de Compra")
-        ax.set_ylabel("Total de Compra")
+        ax.set_ylabel("Precio por Cantidad")
         ax.set_title("Evolución de las Compras")
 
         # Rotar las etiquetas del eje x para mejor legibilidad
