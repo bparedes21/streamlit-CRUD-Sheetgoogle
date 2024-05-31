@@ -309,7 +309,7 @@ def main():
         df = pd.DataFrame(data)
 
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
-        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"])
+        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Agrupar por producto y calcular el precio promedio por cantidad
         df_grouped = df.groupby(['PRODUCTO', 'F. DE COMPRA']).mean().reset_index()
