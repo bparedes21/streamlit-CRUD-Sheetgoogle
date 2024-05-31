@@ -310,7 +310,7 @@ def main():
 
             
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
-        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%Y-%m-%d')
+        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Convertir la columna 'CANTIDAD' a tipo entero
         df["CANTIDAD"] = df["CANTIDAD"].astype(int)
