@@ -328,7 +328,7 @@ def main():
         fig.update_layout(hovermode="x unified", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Total de Precios"))
 
         # Crear el gráfico de barras
-        fig_bar = px.bar(df_grouped1, x='F. DE COMPRA', y='PRODUCTO', title="Cantidad de Productos por Día",
+        fig_bar = px.bar(df_grouped1, x='F. DE COMPRA', y='CANTIDAD', title="Cantidad de Productos por Día",
                         labels={'PRODUCTO': 'Cantidad de Productos', 'F. DE COMPRA': 'Fecha de Compra'})
 
         # Mostrar ambos gráficos en Streamlit
