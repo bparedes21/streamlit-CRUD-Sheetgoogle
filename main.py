@@ -329,7 +329,7 @@ def main():
 
         # Crear el gráfico de barras
         fig_bar = px.bar(df_grouped1, x='F. DE COMPRA', y='CANTIDAD', title="Cantidad de Productos por Día",
-                        labels={'PRODUCTO': 'Cantidad de Productos', 'F. DE COMPRA': 'Fecha de Compra'})
+                        labels={'CANTIDAD': 'Cantidad de Productos', 'F. DE COMPRA': 'Fecha de Compra'})
 
         # Mostrar ambos gráficos en Streamlit
         st.plotly_chart(fig)
