@@ -308,19 +308,17 @@ def main():
         
         df = pd.DataFrame(data)
 
+            
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
-        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
+        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%Y-%m-%d')
 
-
-        # Convertir la columna 'PRECIO POR CANT.' a tipo float
-        df["PRECIO POR CANT."] = df["PRECIO POR CANT."].str.replace(",", "").astype(float)
         # Convertir la columna 'CANTIDAD' a tipo entero
         df["CANTIDAD"] = df["CANTIDAD"].astype(int)
+
         # Agrupar por fecha de compra y calcular el total del precio por cantidad y cantidad de productos por día
         df_grouped = df.groupby("F. DE COMPRA").agg({"PRECIO POR CANT.": "sum", "PRODUCTO": "size"}).reset_index()
-        df_grouped1 = df.groupby("F. DE COMPRA").agg({ "CANTIDAD": "sum"}).reset_index()
-        
-        st.write(df_grouped1)
+        df_grouped1 = df.groupby("F. DE COMPRA").agg({"CANTIDAD": "sum"}).reset_index()
+
         # Crear el gráfico interactivo con Plotly
         fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', title="Evolución del Total de Precios por Día",
                     labels={'PRECIO POR CANT.': 'Total de Precios', 'F. DE COMPRA': 'Fecha de Compra'})
@@ -329,13 +327,11 @@ def main():
         fig.update_traces(mode='lines+markers', hovertemplate='<b>%{x}</b><br><br>Total de Precios: $%{y:,.2f}')
         fig.update_layout(hovermode="x unified", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Total de Precios"))
 
-        # Crear el gráfico de barras
-        fig_bar = px.bar(df_grouped1, x='F. DE COMPRA', y='CANTIDAD', title="Cantidad de Productos por Día",
-                        labels={'CANTIDAD': 'Cantidad de Productos', 'F. DE COMPRA': 'Fecha de Compra'})
+        # Agregar las trazas del gráfico de barras al gráfico de líneas
+        fig.add_bar(x=df_grouped1["F. DE COMPRA"], y=df_grouped1["CANTIDAD"], name="Cantidad de Productos", 
+                    marker_color='rgba(255, 0, 0, 0.5)')
 
-        # Mostrar ambos gráficos en Streamlit
+        # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
-        st.plotly_chart(fig_bar)
-
 if __name__ == "__main__":
     main()
