@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 def get_data():
     # URL de tu API de FastAPI
@@ -306,7 +307,7 @@ def main():
         data = get_data()
         
         df = pd.DataFrame(data)
-    
+
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
@@ -317,20 +318,17 @@ def main():
         st.write("Datos de Compras:")
         st.write(df)
 
-        # Crear el gráfico de evolución
-        fig, ax = plt.subplots()
-        ax.plot(df["F. DE COMPRA"], df["PRECIO POR CANT."], marker='o', linestyle='-')
-
-        # Configurar etiquetas y título
-        ax.set_xlabel("Fecha de Compra")
-        ax.set_ylabel("Precio por Cantidad")
-        ax.set_title("Evolución de las Compras")
-
-        # Rotar las etiquetas del eje x para mejor legibilidad
-        plt.xticks(rotation=45)
-
+        # Crear el gráfico interactivo con Plotly
+        fig = px.line(df, x='F. DE COMPRA', y='PRECIO POR CANT.', text='PRODUCTO', title="Evolución de las Compras",
+                    labels={'PRECIO POR CANT.': 'Precio por Cantidad', 'F. DE COMPRA': 'Fecha de Compra'})
+        
+        # Configurar diseño y estilo del gráfico
+        fig.update_traces(mode='markers+lines', hoverinfo='text')
+        fig.update_layout(hovermode="x", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Precio por Cantidad"))
+        
         # Mostrar el gráfico en Streamlit
-        st.pyplot(fig)
+        st.plotly_chart(fig)
+
 
 
 if __name__ == "__main__":
