@@ -315,20 +315,24 @@ def main():
         # Convertir la columna 'PRECIO POR CANT.' a tipo float
         df["PRECIO POR CANT."] = df["PRECIO POR CANT."].str.replace(",", "").astype(float)
 
-        # Agrupar por fecha de compra y calcular el total del precio por cantidad por día
-        df_grouped = df.groupby("F. DE COMPRA").agg({"PRECIO POR CANT.": "sum"}).reset_index()
-        st.write(df_grouped)
+        # Agrupar por fecha de compra y calcular el total del precio por cantidad y cantidad de productos por día
+        df_grouped = df.groupby("F. DE COMPRA").agg({"PRECIO POR CANT.": "sum", "PRODUCTO": "count"}).reset_index()
+
         # Crear el gráfico interactivo con Plotly
         fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', title="Evolución del Total de Precios por Día",
                     labels={'PRECIO POR CANT.': 'Total de Precios', 'F. DE COMPRA': 'Fecha de Compra'})
 
-        # Configurar diseño y estilo del gráfico
+        # Configurar diseño y estilo del gráfico de líneas
         fig.update_traces(mode='lines+markers', hovertemplate='<b>%{x}</b><br><br>Total de Precios: $%{y:,.2f}')
         fig.update_layout(hovermode="x unified", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Total de Precios"))
 
-        # Mostrar el gráfico en Streamlit
-        st.plotly_chart(fig)
+        # Crear el gráfico de barras
+        fig_bar = px.bar(df_grouped, x='F. DE COMPRA', y='PRODUCTO', title="Cantidad de Productos por Día",
+                        labels={'PRODUCTO': 'Cantidad de Productos', 'F. DE COMPRA': 'Fecha de Compra'})
 
+        # Mostrar ambos gráficos en Streamlit
+        st.plotly_chart(fig)
+        st.plotly_chart(fig_bar)
 
 if __name__ == "__main__":
     main()
