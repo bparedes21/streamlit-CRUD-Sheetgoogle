@@ -277,6 +277,8 @@ def main():
         
         # Convertir 'F. DE COMPRA' a datetime
         data['F. DE COMPRA'] = pd.to_datetime(data['F. DE COMPRA'], format='%d/%m/%Y')
+                # Convertir la columna 'CANTIDAD' a tipo entero
+        df["CANTIDAD"] = df["CANTIDAD"].astype(int)
         
         # Obtener el mes ingresado en la planilla
         mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
