@@ -307,17 +307,31 @@ def main():
         
         df = pd.DataFrame(data)
 
+        # Convertir la columna 'F. DE COMPRA' a tipo datetime
+        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
+
         # Configuración de la página
-        st.title("Top 3 De Total de Precio por producto: Bebidas y bodega, Almacen")
+        st.title("Evolución de las Compras")
 
-        # Filtrar por categoría
-        df_filtered = df[df["CATEGORIA"].isin(["Bebidas y bodega", "Almacen"])]
+        # Mostrar la tabla con los datos
+        st.write("Datos de Compras:")
+        st.write(df)
 
-        # Ordenar el DataFrame en orden descendente según "PRECIO POR CANT." y seleccionar las tres primeras filas
-        df_top_3 = df_filtered.sort_values(by="PRECIO POR CANT.", ascending=False).head(3)
+        # Crear el gráfico de evolución
+        fig, ax = plt.subplots()
+        ax.plot(df["F. DE COMPRA"], df["TOTAL COMPRA"], marker='o', linestyle='-')
 
-        # Mostrar la tabla con los 3 productos más caros
-        st.write(df_top_3)
+        # Configurar etiquetas y título
+        ax.set_xlabel("Fecha de Compra")
+        ax.set_ylabel("Total de Compra")
+        ax.set_title("Evolución de las Compras")
+
+        # Rotar las etiquetas del eje x para mejor legibilidad
+        plt.xticks(rotation=45)
+
+        # Mostrar el gráfico en Streamlit
+        st.pyplot(fig)
+
 
 if __name__ == "__main__":
     main()
