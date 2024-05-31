@@ -312,7 +312,7 @@ def main():
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
         # Agrupar por producto y calcular el precio promedio por cantidad
-        df_grouped = df.groupby(['PRODUCTO', 'F. DE COMPRA']).mean().reset_index()
+        df_grouped = df.groupby(['PRODUCTO', 'F. DE COMPRA']).agg({'PRECIO POR CANT.': 'sum'}).reset_index()
 
         # Crear el gráfico interactivo con Plotly
         fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', color='PRODUCTO', title="Evolución de los Precios por Producto",
