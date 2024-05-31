@@ -309,23 +309,19 @@ def main():
         df = pd.DataFrame(data)
 
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
-        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
+        df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"])
 
-        # Configuración de la página
-        st.title("Evolución de las Compras")
-
-        # Mostrar la tabla con los datos
-        st.write("Datos de Compras:")
-        st.write(df)
+        # Agrupar por producto y calcular el precio promedio por cantidad
+        df_grouped = df.groupby(['PRODUCTO', 'F. DE COMPRA']).mean().reset_index()
 
         # Crear el gráfico interactivo con Plotly
-        fig = px.line(df, x='F. DE COMPRA', y='PRECIO POR CANT.', text='PRODUCTO', title="Evolución de las Compras",
-                    labels={'PRECIO POR CANT.': 'Precio por Cantidad', 'F. DE COMPRA': 'Fecha de Compra'})
+        fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', color='PRODUCTO', title="Evolución de los Precios por Producto",
+                    labels={'PRECIO POR CANT.': 'Precio por Cantidad', 'F. DE COMPRA': 'Fecha de Compra', 'PRODUCTO': 'Producto'})
         
         # Configurar diseño y estilo del gráfico
-        fig.update_traces(mode='markers+lines', hoverinfo='text')
+        fig.update_traces(mode='markers+lines')
         fig.update_layout(hovermode="x", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Precio por Cantidad"))
-        
+
         # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
 
