@@ -301,14 +301,13 @@ def main():
                             hoverinfo='label+percent', textinfo='value+label',
                             textfont_size=12))
 
-        # Crear gráfico de tortas
-        fig, ax = plt.subplots(figsize=(8, 8))  # Tamaño ajustado del gráfico
-        ax.pie(df_grouped, labels=df_grouped.index, autopct='%1.1f%%', startangle=90)
-        ax.set_title(f"Top 3 Productos por Cantidad en {mes_ingresado.strftime('%B %Y')}")
+        # Título del gráfico
+        fig.update_layout(title_text=f"Top 3 Productos por Cantidad en {mes_ingresado}")
 
-        # Mostrar gráfico en Streamlit
-        st.pyplot(fig)
-        st.write("Los productos con más unidades compradas en el mes ingresado son mostrados en el gráfico anterior.")
+        # Mostrar gráfico
+        st.plotly_chart(fig)
+        st.write(f"Los productos con más unidades compradas en el mes ingresado son mostrados en el gráfico anterior.{mes_ingresado}")
+
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
