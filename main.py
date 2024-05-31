@@ -314,10 +314,12 @@ def main():
 
         # Convertir la columna 'PRECIO POR CANT.' a tipo float
         df["PRECIO POR CANT."] = df["PRECIO POR CANT."].str.replace(",", "").astype(float)
-
+        # Convertir la columna 'CANTIDAD' a tipo entero
+        df["CANTIDAD"] = df["CANTIDAD"].astype(int)
         # Agrupar por fecha de compra y calcular el total del precio por cantidad y cantidad de productos por día
         df_grouped = df.groupby("F. DE COMPRA").agg({"PRECIO POR CANT.": "sum", "PRODUCTO": "size"}).reset_index()
         df_grouped1 = df.groupby("F. DE COMPRA").agg({ "CANTIDAD": "sum"}).reset_index()
+        
         st.write(df_grouped1)
         # Crear el gráfico interactivo con Plotly
         fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', title="Evolución del Total de Precios por Día",
