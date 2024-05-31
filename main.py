@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
-import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 def get_data():
     # URL de tu API de FastAPI
@@ -319,18 +320,22 @@ def main():
         # Agrupar por fecha de compra y calcular el total del precio por cantidad y cantidad de productos por día
         df_grouped = df.groupby("F. DE COMPRA").agg({"PRECIO POR CANT.": "sum", "PRODUCTO": "size"}).reset_index()
         df_grouped1 = df.groupby("F. DE COMPRA").agg({"CANTIDAD": "sum"}).reset_index()
+        # Crear subtramas
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-        # Crear el gráfico interactivo con Plotly
-        fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', title="Evolución del Total de Precios por Día",
-                    labels={'PRECIO POR CANT.': 'Total de Precios', 'F. DE COMPRA': 'Fecha de Compra'})
+        # Agregar la línea para los precios por día
+        fig.add_trace(go.Scatter(x=df_grouped["F. DE COMPRA"], y=df_grouped["PRECIO POR CANT."], name="Total de Precios", mode='lines+markers'), secondary_y=False)
 
-        # Configurar diseño y estilo del gráfico de líneas
-        fig.update_traces(mode='lines+markers', hovertemplate='<b>%{x}</b><br><br>Total de Precios: $%{y:,.2f}')
-        fig.update_layout(hovermode="x unified", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Total de Precios"))
+        # Agregar las barras para la cantidad de productos por día
+        fig.add_trace(go.Bar(x=df_grouped1["F. DE COMPRA"], y=df_grouped1["CANTIDAD"], name="Cantidad de Productos"), secondary_y=True)
 
-        # Agregar las trazas del gráfico de barras al gráfico de líneas
-        fig.add_bar(x=df_grouped1["F. DE COMPRA"], y=df_grouped1["CANTIDAD"], name="Cantidad de Productos", 
-                    marker_color='rgba(255, 0, 0, 0.5)')
+        # Actualizar las etiquetas de los ejes
+        fig.update_layout(
+            title="Evolución del Total de Precios y Cantidad de Productos por Día",
+            xaxis=dict(title="Fecha de Compra"),
+            yaxis=dict(title="Total de Precios", color="blue"),
+            yaxis2=dict(title="Cantidad de Productos", color="red")
+        )
 
         # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
