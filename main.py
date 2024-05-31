@@ -312,6 +312,9 @@ def main():
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
 
+        # Convertir la columna 'PRECIO POR CANT.' a tipo float
+        df["PRECIO POR CANT."] = df["PRECIO POR CANT."].str.replace(",", "").astype(float)
+
         # Agrupar por fecha de compra y calcular el total del precio por cantidad por día
         df_grouped = df.groupby("F. DE COMPRA").agg({"PRECIO POR CANT.": "sum"}).reset_index()
         st.write(df_grouped)
