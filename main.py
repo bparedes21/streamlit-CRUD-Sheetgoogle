@@ -249,7 +249,7 @@ def main():
         st.sidebar.subheader("Navegue a través del menú:")
         page = st.sidebar.selectbox(
             "Seleccione una página:",
-            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'","Variacion")
+            ("Inicio","Modificar", "Borrar", "Insertar", "Gráfico 'Top 3 Productos'","Variación, Comparación de Precios y Cantidad de Productos por Día")
         )
 
     if page == "Inicio":
@@ -281,21 +281,27 @@ def main():
         # Obtener el mes ingresado en la planilla
         mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
         data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == mes_ingresado]
-        
+
         # Convertir la columna 'CANTIDAD' a tipo numérico
         data_mes_ingresado['CANTIDAD'] = pd.to_numeric(data_mes_ingresado['CANTIDAD'], errors='coerce')
-        
+
         # Calcular el total de cada producto por fecha de compra en el mes ingresado
         df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3)
-        
-        # Graficar
-        fig, ax = plt.subplots(figsize=(2, 2))  # Reducir tamaño al 50%
-        ax.pie(df_grouped, labels=df_grouped.index, autopct='%1.1f%%', startangle=90)
-        ax.set_title(f" 'Top 3 Productos' {mes_ingresado}")
-        
+
+        # Graficar con Plotly
+        fig = go.Figure()
+
+        # Añadir los datos de la torta
+        fig.add_trace(go.Pie(labels=df_grouped.index, values=df_grouped, 
+                            hoverinfo='label+percent', textinfo='value+label',
+                            textfont_size=12))
+
+        # Título del gráfico
+        fig.update_layout(title_text=f"Top 3 Productos por Cantidad en {mes_ingresado}")
+
         # Mostrar gráfico
-        st.pyplot(fig)
-        st.write("con mas Unidades compradas del Ultimo Mes Ingresado")
+        st.plotly_chart(fig)
+        st.write(f"con más unidades compradas del {mes_ingresado}")
 
     elif page == "Modificar":
         main_mr()
@@ -303,7 +309,7 @@ def main():
         main_br()
     elif page == "Insertar":
         main_sr()
-    elif page == "Variacion":
+    elif page == "Variación, Comparación de Precios y Cantidad de Productos por Día":
         
         data = get_data()
         
