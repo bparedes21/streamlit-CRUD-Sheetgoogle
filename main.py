@@ -311,7 +311,8 @@ def main():
             
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
-
+        # Convertir la columna 'PRECIO POR CANT.' a tipo float
+        df["PRECIO POR CANT."] = df["PRECIO POR CANT."].str.replace(",", "").astype(float)
         # Convertir la columna 'CANTIDAD' a tipo entero
         df["CANTIDAD"] = df["CANTIDAD"].astype(int)
 
