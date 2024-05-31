@@ -303,7 +303,7 @@ def main():
         # Personalizar etiquetas emergentes
         fig.update_traces(hovertemplate='<b>Producto</b>: %{label}<br><b>Cantidad</b>: %{value}')
         # Ajustar el título del gráfico para que esté centrado
-        fig.update_layout(title=dict(x=0.5))
+        fig.update_layout(title=dict(x=0))
 
         # Mostrar gráfico en Streamlit
         st.plotly_chart(fig)
