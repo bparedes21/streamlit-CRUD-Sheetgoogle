@@ -324,20 +324,33 @@ def main():
         fig = make_subplots(specs=[[{"secondary_y": True}]])
 
         # Agregar la línea para los precios por día
-        fig.add_trace(go.Scatter(x=df_grouped["F. DE COMPRA"], y=df_grouped["PRECIO POR CANT."], name="Total de Precios", mode='lines+markers'), secondary_y=False)
+        fig.add_trace(go.Scatter(
+            x=df_grouped["F. DE COMPRA"], 
+            y=df_grouped["PRECIO POR CANT."], 
+            name="Total de Precios", 
+            mode='lines+markers',
+            hovertemplate='<b>Fecha:</b> %{x|%d/%m}<br><b>Total de Precios:</b> $%{y:,.2f}'
+        ), secondary_y=False)
 
         # Agregar las barras para la cantidad de productos por día
-        fig.add_trace(go.Bar(x=df_grouped1["F. DE COMPRA"], y=df_grouped1["CANTIDAD"], name="Cantidad de Productos"), secondary_y=True)
+        fig.add_trace(go.Bar(
+            x=df_grouped1["F. DE COMPRA"], 
+            y=df_grouped1["CANTIDAD"], 
+            name="Cantidad de Productos",
+            hovertemplate='<b>Fecha:</b> %{x|%d/%m}<br><b>Cantidad de Productos:</b> %{y}'
+        ), secondary_y=True)
 
         # Actualizar las etiquetas de los ejes
         fig.update_layout(
-            title="Evolución del Total de Precios y Cantidad de Productos por Día",
-            xaxis=dict(title="Fecha de Compra"),
-            yaxis=dict(title="Total de Precios", color="blue"),
-            yaxis2=dict(title="Cantidad de Productos", color="red")
+        title="Evolución del Total de Precios y Cantidad de Productos por Día",
+        xaxis=dict(title="Fecha de Compra"),
+        yaxis=dict(title="Total de Precios", color="blue"),
+        yaxis2=dict(title="Cantidad de Productos", color="red"),
+        hovermode="x unified"
         )
 
         # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
+
 if __name__ == "__main__":
     main()
