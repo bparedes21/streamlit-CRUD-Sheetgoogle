@@ -296,12 +296,12 @@ def main():
         df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3).reset_index()
 
                 
-        # Crear gráfico de barras con Plotly
-        fig = px.bar(df_grouped, x='PRODUCTO', y='CANTIDAD', title=f"Top 3 Productos por Cantidad en {mes_ingresado.strftime('%B %Y')}",
-                    labels={'PRODUCTO': 'Producto', 'CANTIDAD': 'Cantidad'})
+            
+        # Crear gráfico de torta con Plotly
+        fig = px.pie(df_grouped, values='CANTIDAD', names='PRODUCTO', title=f"Top 3 Productos por Cantidad en {mes_ingresado.strftime('%B %Y')}")
 
         # Personalizar etiquetas emergentes
-        fig.update_traces(hovertemplate='<b>Producto: %{x}</b><br>Cantidad: %{y}')
+        fig.update_traces(hovertemplate='<b>Producto</b>: %{label}<br><b>Cantidad</b>: %{value}')
 
         # Mostrar gráfico en Streamlit
         st.plotly_chart(fig)
