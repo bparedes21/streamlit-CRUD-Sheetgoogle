@@ -342,7 +342,7 @@ def main():
 
         # Actualizar las etiquetas de los ejes
         fig.update_layout(
-        title="Evolución del Total de Precios y Cantidad de Productos por Día",
+        title="Comparación de la Evolución de los Precios Totales y la Cantidad de Productos por Día"",
         xaxis=dict(title="Fecha de Compra"),
         yaxis=dict(title="Total de Precios", color="blue"),
         yaxis2=dict(title="Cantidad de Productos", color="red"),
