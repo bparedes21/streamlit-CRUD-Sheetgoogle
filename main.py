@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
-import plotly.express as px
+import plotly.graph_objs as go
 
 def get_data():
     # URL de tu API de FastAPI
@@ -311,17 +311,23 @@ def main():
         # Convertir la columna 'F. DE COMPRA' a tipo datetime
         df["F. DE COMPRA"] = pd.to_datetime(df["F. DE COMPRA"], format='%d/%m/%Y')
 
-        # Agrupar por producto y calcular el precio promedio por cantidad
-        df_grouped = df.groupby(['PRODUCTO', 'F. DE COMPRA']).agg({'PRECIO POR CANT.': 'sum'}).reset_index()
+        # Obtener la lista de productos únicos
+        productos = df["PRODUCTO"].unique()
+
+        # Configuración de la página
+        st.title("Evolución de los Precios por Producto")
 
         # Crear el gráfico interactivo con Plotly
-        fig = px.line(df_grouped, x='F. DE COMPRA', y='PRECIO POR CANT.', color='PRODUCTO', title="Evolución de los Precios por Producto",
-                    labels={'PRECIO POR CANT.': 'Precio por Cantidad', 'F. DE COMPRA': 'Fecha de Compra', 'PRODUCTO': 'Producto'})
-        
-        # Configurar diseño y estilo del gráfico
-        fig.update_traces(mode='markers+lines')
-        fig.update_layout(hovermode="x", xaxis=dict(title="Fecha de Compra"), yaxis=dict(title="Precio por Cantidad"))
+        fig = go.Figure()
 
+        # Iterar sobre cada producto y graficar su evolución
+        for producto in productos:
+            df_producto = df[df["PRODUCTO"] == producto]
+            fig.add_trace(go.Scatter(x=df_producto["F. DE COMPRA"], y=df_producto["PRECIO POR CANT."], mode='lines+markers', name=producto))
+
+        # Configurar diseño y estilo del gráfico
+        fig.update_layout(title="Evolución de los Precios por Producto", xaxis_title="Fecha de Compra", yaxis_title="Precio por Cantidad")
+        
         # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
 
