@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
+
+import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
@@ -287,27 +288,22 @@ def main():
         mes_ingresado = data['F. DE COMPRA'].max().to_period('M')
         data_mes_ingresado = data[data['F. DE COMPRA'].dt.to_period('M') == selected_mes]
 
+
         # Convertir la columna 'CANTIDAD' a tipo numérico
         data_mes_ingresado['CANTIDAD'] = pd.to_numeric(data_mes_ingresado['CANTIDAD'], errors='coerce')
 
         # Calcular el total de cada producto por fecha de compra en el mes ingresado
-        df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3)
+        df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3).reset_index()
 
-        # Graficar con Plotly
-        fig = go.Figure()
+        # Crear gráfico de tortas con Plotly
+        fig = px.pie(df_grouped, values='CANTIDAD', names='PRODUCTO', title=f"Top 3 Productos por Cantidad en {mes_ingresado.strftime('%B %Y')}",
+                    labels={'PRODUCTO': 'Producto', 'CANTIDAD': 'Cantidad'})
 
-        # Añadir los datos de la torta
-        fig.add_trace(go.Pie(labels=df_grouped.index, values=df_grouped, 
-                            hoverinfo='label+percent', textinfo='value+label',
-                            textfont_size=20))
+        # Personalizar etiquetas emergentes
+        fig.update_traces(textinfo='percent+label', hovertemplate='<b>%{label}</b><br>Cantidad: %{value}<br>%{percent}')
 
-        # Título del gráfico
-        fig.update_layout(title_text=f"Top 3 Productos por Cantidad en {mes_ingresado}")
-
-        # Mostrar gráfico
+        # Mostrar gráfico en Streamlit
         st.plotly_chart(fig)
-        st.write(f"Los productos con más unidades compradas en el mes ingresado son mostrados en el gráfico anterior.{mes_ingresado}")
-
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
