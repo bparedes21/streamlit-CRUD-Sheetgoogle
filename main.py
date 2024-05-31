@@ -295,15 +295,17 @@ def main():
         # Calcular el total de cada producto por fecha de compra en el mes ingresado
         df_grouped = data_mes_ingresado.groupby('PRODUCTO')['CANTIDAD'].sum().nlargest(3).reset_index()
 
-        # Crear gráfico de tortas con Plotly
-        fig = px.pie(df_grouped, values='CANTIDAD', names='PRODUCTO', title=f"Top 3 Productos por Cantidad en {mes_ingresado.strftime('%B %Y')}",
+                
+        # Crear gráfico de barras con Plotly
+        fig = px.bar(df_grouped, x='PRODUCTO', y='CANTIDAD', title=f"Top 3 Productos por Cantidad en {mes_ingresado.strftime('%B %Y')}",
                     labels={'PRODUCTO': 'Producto', 'CANTIDAD': 'Cantidad'})
 
         # Personalizar etiquetas emergentes
-        fig.update_traces(textinfo='percent+label', hovertemplate='<b>%{label}</b><br>Cantidad: %{value}<br>%{percent}')
+        fig.update_traces(hovertemplate='<b>Producto: %{x}</b><br>Cantidad: %{y}')
 
         # Mostrar gráfico en Streamlit
         st.plotly_chart(fig)
+        st.write("Los productos con más unidades compradas en el mes ingresado son mostrados en el gráfico anterior.")
     elif page == "Modificar":
         main_mr()
     elif page == "Borrar":
